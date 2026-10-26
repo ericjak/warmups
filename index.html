@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Algebra I Warm-Ups</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2f5d8a">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes">
 <style>
 :root{--bg:#f5f4ef;--panel:#ffffff;--ink:#1d2330;--muted:#687080;--line:#e2e0d8;--accent:#2f5d8a;--accent-ink:#fff;
 --good:#2b7a4b;--bad:#b0402c;--warn:#a86d12;--good-bg:#e3f1e8;--bad-bg:#f8e3de;--warn-bg:#faefd9;
@@ -164,6 +169,7 @@ h3{margin:18px 0 6px;font-size:15px}
     <button data-tab="setup">Setup</button>
   </nav>
   <div class="today" id="today"></div>
+  <button class="btn sm" id="fsbtn" data-act="fs" hidden>Full screen</button>
 </header>
 <main id="main"></main>
 <div id="toast"></div>
@@ -882,6 +888,7 @@ function setAll(on){const k=C();cats(true).forEach(c=>{k.enabled[c.id]=on});save
 document.addEventListener('click',e=>{if(e.target.closest('#modal'))return;const t=e.target.closest('[data-act],[data-tab]');if(!t||t.disabled)return;
   if(t.dataset.tab){tab=t.dataset.tab;return render()}
   const a=t.dataset.act;
+  if(a==='fs')return fsToggle();
   if(a==='newround')return newRound();
   if(a==='lvl'){C().level=+t.dataset.v;save();renderHeader();return toast(`Max difficulty for ${esc(C().name)}: ${t.dataset.v}. Applies to new problems.`)}
   const i=+t.dataset.i,sl=round&&round.slots[i];
@@ -931,7 +938,15 @@ document.addEventListener('keydown',e=>{if(modalOpen()||tab!=='warm'||!C()||/INP
   if(e.key===' '){s.shown=!s.shown;render()}
   else if(act>=0&&'123'.includes(e.key))record(act,{1:'correct',2:'incorrect',3:'noattempt'}[e.key]);});
 
-if(typeof document!=='undefined'&&document.getElementById('main')){load();save();render()}
+// Full screen: one tap hides the browser and system bars (hidden where the browser can't do it, or when already running as an installed full-screen app).
+const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
+function fsSync(){const b=$('#fsbtn'),can=document.fullscreenEnabled||document.webkitFullscreenEnabled,inst=matchMedia('(display-mode: fullscreen)').matches;
+  b.hidden=!can||(inst&&!fsEl());b.textContent=fsEl()?'Exit full screen':'Full screen'}
+document.addEventListener('fullscreenchange',fsSync);document.addEventListener('webkitfullscreenchange',fsSync);
+function fsToggle(){const d=document.documentElement;
+  if(fsEl()){(document.exitFullscreen||document.webkitExitFullscreen).call(document)}
+  else{const r=(d.requestFullscreen||d.webkitRequestFullscreen).call(d,{navigationUI:'hide'});if(r&&r.catch)r.catch(()=>toast("Full screen isn't available here."))}}
+if(typeof document!=='undefined'&&document.getElementById('main')){load();save();render();fsSync()}
 </script>
 </body>
 </html>
