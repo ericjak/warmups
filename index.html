@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algebra I Warm-Ups</title>
+<style>
+:root{--bg:#f5f4ef;--panel:#ffffff;--ink:#1d2330;--muted:#687080;--line:#e2e0d8;--accent:#2f5d8a;--accent-ink:#fff;
+--good:#2b7a4b;--bad:#b0402c;--warn:#a86d12;--good-bg:#e3f1e8;--bad-bg:#f8e3de;--warn-bg:#faefd9;
+--grid:#e8e8e8;--axis:#555;--l0:#2f5d8a;--l1:#c4562c;--pt:#1d2330}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171d;--panel:#1d2129;--ink:#e8e9ec;--muted:#9ba2ae;--line:#2e333d;--accent:#71a5d8;--accent-ink:#0d1117;
+--good:#5fc189;--bad:#e67f68;--warn:#e2ab4d;--good-bg:#1e3428;--bad-bg:#3b2520;--warn-bg:#3a2f1b;
+--grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--pt:#e8e9ec;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#14171d;--panel:#1d2129;--ink:#e8e9ec;--muted:#9ba2ae;--line:#2e333d;--accent:#71a5d8;--accent-ink:#0d1117;
+--good:#5fc189;--bad:#e67f68;--warn:#e2ab4d;--good-bg:#1e3428;--bad-bg:#3b2520;--warn-bg:#3a2f1b;
+--grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--pt:#e8e9ec;color-scheme:dark}
+:root{--scrim:rgba(20,23,29,.45)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:18px;margin:0;font-weight:650}
+#classbox select{font-weight:650;font-size:15px}
+nav{display:flex;gap:4px;flex-wrap:wrap}
+nav button{border:none;background:none;color:var(--ink);padding:7px 14px;border-radius:8px;font:inherit;font-size:15px;cursor:pointer}
+nav button:hover{background:var(--bg)}
+nav button.on{background:var(--accent);color:var(--accent-ink)}
+.today{margin-left:auto;color:var(--muted);font-size:14px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;background:var(--bg);cursor:pointer;font:inherit;font-size:13px;color:var(--ink)}
+.chip:hover{border-color:var(--bad)}
+main{max-width:1250px;margin:0 auto;padding-block:20px 90px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 26px}
+.who{font-size:clamp(40px,7vw,84px);font-weight:700;line-height:1.05;letter-spacing:-.01em}
+.skill{text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:var(--accent);font-weight:650;margin-top:8px}
+.prob{font-size:clamp(26px,3.6vw,44px);margin:20px 0 6px;line-height:1.5}
+.ins{font-size:.72em;line-height:1.4;display:block}
+.wp{font-size:.64em;line-height:1.5;display:block}
+.math{white-space:nowrap}
+.math i{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-style:italic;padding:0 .03em}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;font-size:.72em;line-height:1.08;margin:0 .06em}
+.frac .nu{border-bottom:.08em solid currentColor;padding:0 .14em}
+.frac .de{padding:0 .14em}
+.sys{display:flex;flex-direction:column;gap:.3em;border-left:3px solid var(--ink);border-radius:12px 0 0 12px;padding:.15em 0 .15em .6em;margin:.35em 0 0 .3em;width:max-content}
+.seq{margin-top:.25em}
+.rel{margin-top:.25em;font-size:.85em}
+table.vt{border-collapse:collapse;width:auto;font-size:.72em;margin-top:10px}
+table.vt th,table.vt td{border:1.5px solid var(--ink);padding:3px 14px;text-align:center}
+table.vt th{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-style:italic;font-weight:400;background:var(--bg)}
+.qgraph{margin-top:8px}
+.map{width:min(100%,320px);height:auto;margin-top:6px;display:block}
+.map ellipse{fill:none;stroke:var(--ink);stroke-width:1.5}
+.map text{fill:var(--ink);font-size:17px;font-family:system-ui,sans-serif}
+.map text.hd{fill:var(--muted);font-size:13px}
+.map line{stroke:var(--accent);stroke-width:1.7}
+.map .ah{fill:var(--accent)}
+.ans{border-top:1px dashed var(--line);margin-top:16px;padding-top:16px;font-size:clamp(20px,2.6vw,32px);display:flex;gap:28px;flex-wrap:wrap;align-items:flex-start}
+.ans .sub{font-size:.68em;color:var(--muted);margin-top:6px}
+.graph{width:min(100%,420px);height:auto;flex:none}
+.graph .gr{stroke:var(--grid);stroke-width:1}
+.graph .ax{stroke:var(--axis);stroke-width:1.6}
+.graph text{fill:var(--muted);font-size:10px;font-family:system-ui,sans-serif}
+.graph .ln{stroke-width:3;fill:none}
+.graph .ln0{stroke:var(--l0)} .graph .ln1{stroke:var(--l1)}
+.graph .sh0{fill:var(--l0);opacity:.2}
+.graph .pt{fill:var(--pt)}
+.graph .ptl{fill:var(--ink);font-size:13px;font-weight:650}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+button{font:inherit;cursor:pointer}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:10px;padding:9px 16px;font-size:15px}
+.btn:hover{border-color:var(--accent)}
+.btn:disabled{opacity:.45;cursor:default}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.big{font-size:22px;padding:16px 30px}
+.btn.danger{color:var(--bad)}
+.btn.sm{font-size:13px;padding:5px 10px}
+.res{font-size:18px;padding:14px 22px;font-weight:650}
+.res.good{background:var(--good-bg);color:var(--good);border-color:var(--good)}
+.res.bad{background:var(--bad-bg);color:var(--bad);border-color:var(--bad)}
+.res.na{background:var(--warn-bg);color:var(--warn);border-color:var(--warn)}
+.sep{flex:1}
+select,input[type=text]{font:inherit;font-size:15px;padding:7px 9px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);max-width:100%}
+textarea{width:100%;font:15px/1.5 ui-monospace,Consolas,monospace;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+.muted{color:var(--muted)} .small{font-size:13px}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;display:flex;gap:14px;align-items:center;box-shadow:0 6px 24px rgba(0,0,0,.2);z-index:5;max-width:calc(100% - 32px)}
+.toast button{background:none;border:none;color:inherit;text-decoration:underline;font-weight:650;padding:0}
+.banner{background:var(--warn-bg);color:var(--warn);padding:8px 18px;font-size:14px}
+.tablewrap{overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%}
+th,td{border-bottom:1px solid var(--line);padding:7px 9px;text-align:left;vertical-align:middle}
+.cov th,.cov td{text-align:center;border:1px solid var(--line)}
+.cov th:first-child,.cov td:first-child{text-align:left;white-space:nowrap;position:sticky;left:0;background:var(--panel)}
+.cov thead th{font-size:12px;font-weight:600;color:var(--muted);min-width:80px;vertical-align:bottom}
+.cov td.cell{font-weight:700;font-size:15px}
+.c-good{background:var(--good-bg);color:var(--good)} .c-bad{background:var(--bad-bg);color:var(--bad)} .c-na{background:var(--warn-bg);color:var(--warn)}
+.cov sup{font-weight:500;font-size:10px;margin-left:1px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin:10px 2px}
+.legend span b{display:inline-block;width:22px;text-align:center;border-radius:4px;margin-right:4px}
+.hist .p{font-size:14px}
+.hist .p .graph,.hist .p .map{width:120px}
+.hist .p table.vt{font-size:12px}
+.tag{font-size:12px;font-weight:650;padding:2px 8px;border-radius:999px}
+section.set{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:16px}
+section.set h2{font-size:17px;margin:0 0 8px}
+.catrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.catrow:last-child{border-bottom:none}
+.catrow label{flex:1;display:flex;gap:8px;align-items:center}
+.empty{text-align:center;padding:60px 20px}
+.kbd{font-size:12px;color:var(--muted);margin-top:14px}
+h3{margin:18px 0 6px;font-size:15px}
+.slots{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.slots.one{grid-template-columns:1fr}
+@media (max-width:900px){.slots{grid-template-columns:1fr}}
+.slot{padding:18px 20px;transition:opacity .2s;min-width:0;overflow-wrap:break-word}
+.slot.active{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.slot.done{opacity:.75}
+.slothead{display:flex;align-items:center;gap:12px}
+.pnum{display:inline-grid;place-items:center;width:36px;height:36px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:18px;flex:none}
+.slothead .skill{margin:0}
+.slot .prob{font-size:clamp(22px,2.7vw,36px);margin:16px 0 6px}
+.slot .ans{font-size:clamp(17px,1.9vw,24px);gap:16px}
+.slot .graph{width:min(100%,330px)}
+.whobox{margin-top:18px;min-height:64px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.slot .who{font-size:clamp(34px,4.6vw,60px)}
+.tag.big{font-size:15px;padding:5px 12px}
+.slot .res{font-size:16px;padding:11px 15px}
+.small-row .btn{font-size:14px;padding:7px 12px}
+.small-row select{font-size:14px;max-width:220px}
+.center{justify-content:center}
+.mback{position:fixed;inset:0;background:var(--scrim);display:flex;align-items:center;justify-content:center;z-index:20;padding:16px}
+.mbox{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:20px 22px;width:min(100%,460px);max-height:calc(100% - 32px);overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.25)}
+.mbox.wide{width:min(100%,640px)}
+.mbox h2{margin:0 0 8px;font-size:18px;text-wrap:balance}
+.mbody{color:var(--muted);font-size:15px}
+.mbox input[type=text]{width:100%;margin-top:10px}
+.mbox textarea{margin-top:10px;font-size:13px}
+.mrow{justify-content:flex-end;margin-top:18px}
+.btn.dangerfill{background:var(--bad);border-color:var(--bad);color:var(--panel)}
+.btn:focus-visible,nav button:focus-visible,.lvl button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lvl{display:inline-flex;align-items:center;gap:2px;font-size:13px;color:var(--muted)}
+.lvl span{margin-right:6px}
+.lvl button{border:1px solid var(--line);background:var(--panel);color:var(--ink);width:30px;height:30px;padding:0;font-size:14px;font-weight:600}
+.lvl button:first-of-type{border-radius:8px 0 0 8px}.lvl button:last-of-type{border-radius:0 8px 8px 0}
+.lvl button.on{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.lvtag{margin-left:auto;font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.how{flex-basis:100%;font-size:.8em;line-height:1.5;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px 10px 12px}
+.how .howt{font-size:.75em;text-transform:uppercase;letter-spacing:.07em;color:var(--accent);font-weight:650;margin-bottom:4px}
+.how ol{margin:0;padding-left:1.4em}.how li{margin:3px 0}
+.how .frac{font-size:.8em}
+.classrow{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--line)}
+.classrow:last-child{border-bottom:none}
+.classrow .nm{flex:1;font-weight:600}
+.classrow.cur .nm::after{content:"  · selected";font-weight:400;color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div id="banner"></div>
+<header>
+  <h1>Algebra I Warm-Ups</h1>
+  <div id="classbox"></div>
+  <div id="lvlbox"></div>
+  <nav id="nav">
+    <button data-tab="warm">Warm-Up</button>
+    <button data-tab="cov">Coverage</button>
+    <button data-tab="hist">History</button>
+    <button data-tab="setup">Setup</button>
+  </nav>
+  <div class="today" id="today"></div>
+</header>
+<main id="main"></main>
+<div id="toast"></div>
+<div id="modal"></div>
+<input type="file" id="importFile" accept=".json,application/json" hidden>
+<input type="file" id="importSkills" accept=".json,application/json" hidden>
+<script>
+/* ===================== math helpers ===================== */
+const gcd=(a,b)=>{a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a||1};
+function R(n,d=1){if(d<0){n=-n;d=-d}const g=gcd(n,d);return{n:n/g,d:d/g}}
+const rval=r=>r.n/r.d;
+const rand=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const nz=(a,b)=>{let v;do{v=rand(a,b)}while(v===0);return v};
+const sgn=()=>Math.random()<.5?-1:1;
+const gauss=()=>{let u=0,v=0;while(!u)u=Math.random();while(!v)v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=rand(0,i);[a[i],a[j]]=[a[j],a[i]]}return a};
+const rnd=(v,p)=>{const f=10**p;return Math.round(v*f)/f};
+function tryGen(f){for(let i=0;i<3000;i++){const r=f();if(r)return r}throw new Error('Could not generate a problem')}
+
+const MINUS='−';
+const num=n=>(n<0?MINUS:'')+Math.abs(n);
+const f2=v=>{const s=Math.abs(v).toFixed(2);return(v<0&&s!=='0.00'?MINUS:'')+s};
+const money=v=>'$'+(Number.isInteger(v)?v.toLocaleString('en-US'):v.toFixed(2));
+const V=v=>`<i>${v}</i>`;
+const M=s=>`<span class="math">${s}</span>`;
+const frac=(n,d)=>`<span class="frac"><span class="nu">${n}</span><span class="de">${d}</span></span>`;
+const rAbs=r=>{const n=Math.abs(r.n);return r.d===1?String(n):frac(n,r.d)};
+const rHTML=r=>(r.n<0?MINUS:'')+rAbs(r);
+function expr(terms){let out='',first=true;
+  for(const[c,v]of terms){if(c.n===0)continue;const neg=c.n<0,a=R(Math.abs(c.n),c.d);
+    const body=v?((a.n===1&&a.d===1)?V(v):rAbs(a)+V(v)):rAbs(a);
+    if(first){out+=(neg?MINUS:'')+body;first=false}else out+=(neg?` ${MINUS} `:' + ')+body}
+  return first?'0':out}
+const slopeInt=(m,b)=>`${V('y')} = ${expr([[m,'x'],[b,'']])}`;
+const stdForm=(A,B,C)=>`${expr([[R(A),'x'],[R(B),'y']])} = ${num(C)}`;
+const pt=(x,y)=>`(${num(x)}, ${num(y)})`;
+const sys=(a,b)=>`<div class="sys"><div>${M(a)}</div><div>${M(b)}</div></div>`;
+// decimal-coefficient linear equation, e.g. C = 35h + 60
+const coefD=m=>m===1?'':m===-1?MINUS:num(m);
+const linEq=(yv,xv,m,b,fmt=num)=>`${V(yv)} = ${coefD(m)}${V(xv)}${b===0?'':` ${b<0?MINUS:'+'} ${fmt(Math.abs(b))}`}`;
+function ptSlope(m,x1,y1){
+  const L=y1===0?V('y'):`${V('y')} ${y1<0?'+':MINUS} ${Math.abs(y1)}`;
+  if(m.n===0)return`${L} = 0`;
+  const c=(m.n===1&&m.d===1)?'':(m.n===-1&&m.d===1)?MINUS:rHTML(m);
+  const bare=`${V('x')} ${x1<0?'+':MINUS} ${Math.abs(x1)}`;
+  const inner=x1===0?V('x'):c===''?bare:`(${bare})`;
+  return`${L} = ${c}${inner}`}
+const SLOPES=[[1,1],[2,1],[3,1],[1,2],[1,3],[2,3],[3,2],[3,4],[4,3],[1,4]].flatMap(([n,d])=>[R(n,d),R(-n,d)]);
+const OPS={'<':'&lt;','<=':'&le;','>':'&gt;','>=':'&ge;'};
+const FLIP={'<':'>','<=':'>=','>':'<','>=':'<='};
+const ord=n=>{const s=(n%100>=11&&n%100<=13)?'th':({1:'st',2:'nd',3:'rd'}[n%10]||'th');return n+s};
+const ins=s=>`<span class="ins">${s}</span>`;
+
+/* ===================== drawing ===================== */
+let svgN=0;
+function graphSVG({lines=[],points=[],paths=[],N=10}){
+  const S=400,u=S/(2*N),X=x=>+((x+N)*u).toFixed(2),Y=y=>+((N-y)*u).toFixed(2);
+  const id='c'+(++svgN)+Math.random().toString(36).slice(2,6);
+  let s=`<svg class="graph" viewBox="-16 -16 ${S+32} ${S+32}" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${id}"><rect x="0" y="0" width="${S}" height="${S}"/></clipPath></defs>`;
+  for(let i=-N;i<=N;i++){if(i===0)continue;s+=`<line class="gr" x1="${X(i)}" y1="0" x2="${X(i)}" y2="${S}"/><line class="gr" x1="0" y1="${Y(i)}" x2="${S}" y2="${Y(i)}"/>`}
+  s+=`<line class="ax" x1="${X(0)}" y1="0" x2="${X(0)}" y2="${S}"/><line class="ax" x1="0" y1="${Y(0)}" x2="${S}" y2="${Y(0)}"/>`;
+  for(let i=-N+2;i<N;i+=2){if(i===0)continue;
+    s+=`<text x="${X(i)}" y="${Y(0)+13}" text-anchor="middle">${num(i)}</text><text x="${X(0)-4}" y="${Y(i)+3.5}" text-anchor="end">${num(i)}</text>`}
+  s+=`<g clip-path="url(#${id})">`;
+  lines.forEach((l,i)=>{const dash=l.dashed?' stroke-dasharray="12 8"':'';
+    if(l.vx!==undefined){const x=X(l.vx);
+      if(l.shade)s+=l.shade==='right'?`<rect class="sh0" x="${x}" y="0" width="${S-x}" height="${S}"/>`:`<rect class="sh0" x="0" y="0" width="${x}" height="${S}"/>`;
+      s+=`<line class="ln ln${i}"${dash} x1="${x}" y1="-5" x2="${x}" y2="${S+5}"/>`}
+    else{const f=x=>rval(l.m)*x+rval(l.b),a=-N-1,b=N+1,p0=[X(a),Y(f(a))],p1=[X(b),Y(f(b))];
+      if(l.shade){const e=l.shade==='above'?-99999:99999;s+=`<polygon class="sh0" points="${p0} ${p1} ${p1[0]},${e} ${p0[0]},${e}"/>`}
+      s+=`<line class="ln ln${i}"${dash} x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}"/>`}});
+  paths.forEach(pp=>{s+=`<polyline class="ln ln0" points="${pp.map(([x,y])=>`${X(Math.max(-60,Math.min(60,x)))},${Y(Math.max(-60,Math.min(60,y)))}`).join(' ')}"/>`});
+  s+='</g>';
+  points.forEach(p=>{s+=`<circle class="pt" cx="${X(p.x)}" cy="${Y(p.y)}" r="5"/>`;
+    if(p.label){const right=p.x<N-4;s+=`<text class="ptl" x="${X(p.x)+(right?9:-9)}" y="${Y(p.y)-9}" text-anchor="${right?'start':'end'}">${pt(p.x,p.y)}</text>`}});
+  return s+'</svg>'}
+const sampleX=(f,a=-11,b=11)=>{const o=[];for(let x=a;x<=b+1e-9;x+=.1)o.push([x,f(x)]);return o};
+const sampleY=(g,a=-11,b=11)=>{const o=[];for(let y=a;y<=b+1e-9;y+=.1)o.push([g(y),y]);return o};
+
+function niceStep(range){const raw=range/5,p=10**Math.floor(Math.log10(raw)),m=raw/p;return(m<1.5?1:m<3?2:m<7?5:10)*p}
+function scatterSVG(pts,{line=null,labels=true}={}){
+  const xs=pts.map(p=>p[0]),ys=pts.map(p=>p[1]);
+  let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+  const sx=niceStep((x1-x0)||1),sy=niceStep((y1-y0)||1);
+  x0=Math.floor(x0/sx)*sx-(x0%sx===0?sx:0);x1=Math.ceil(x1/sx)*sx+(x1%sx===0?sx:0);
+  y0=Math.floor(y0/sy)*sy-(y0%sy===0?sy:0);y1=Math.ceil(y1/sy)*sy+(y1%sy===0?sy:0);
+  const W=400,H=320,pl=labels?40:12,pb=labels?26:12,pr=12,pt_=12;
+  const X=x=>+(pl+(x-x0)/(x1-x0)*(W-pl-pr)).toFixed(2),Y=y=>+(H-pb-(y-y0)/(y1-y0)*(H-pb-pt_)).toFixed(2);
+  const id='s'+(++svgN)+Math.random().toString(36).slice(2,6);
+  let s=`<svg class="graph" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${id}"><rect x="${pl}" y="${pt_}" width="${W-pl-pr}" height="${H-pb-pt_}"/></clipPath></defs>`;
+  const fx=v=>num(rnd(v,6));
+  for(let x=x0;x<=x1+1e-9;x+=sx){s+=`<line class="gr" x1="${X(x)}" y1="${pt_}" x2="${X(x)}" y2="${H-pb}"/>`;if(labels)s+=`<text x="${X(x)}" y="${H-pb+15}" text-anchor="middle">${fx(x)}</text>`}
+  for(let y=y0;y<=y1+1e-9;y+=sy){s+=`<line class="gr" x1="${pl}" y1="${Y(y)}" x2="${W-pr}" y2="${Y(y)}"/>`;if(labels)s+=`<text x="${pl-5}" y="${Y(y)+3.5}" text-anchor="end">${fx(y)}</text>`}
+  s+=`<line class="ax" x1="${pl}" y1="${pt_}" x2="${pl}" y2="${H-pb}"/><line class="ax" x1="${pl}" y1="${H-pb}" x2="${W-pr}" y2="${H-pb}"/>`;
+  if(line)s+=`<g clip-path="url(#${id})"><line class="ln ln1" x1="${X(x0)}" y1="${Y(line.a*x0+line.b)}" x2="${X(x1)}" y2="${Y(line.a*x1+line.b)}"/></g>`;
+  pts.forEach(([x,y])=>{s+=`<circle class="pt" cx="${X(x)}" cy="${Y(y)}" r="4.5"/>`});
+  return s+'</svg>'}
+
+function mapSVG(pairs){
+  const xs=[...new Set(pairs.map(p=>p[0]))].sort((a,b)=>a-b),ys=[...new Set(pairs.map(p=>p[1]))].sort((a,b)=>a-b);
+  const rows=Math.max(xs.length,ys.length),rowH=36,top=26,H=top+rows*rowH+14,W=300,lx=70,rx=230;
+  const yAt=(i,n)=>top+7+(rows*rowH)*(i+.5)/n;
+  const id='m'+(++svgN)+Math.random().toString(36).slice(2,6);
+  let s=`<svg class="map" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg"><defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path class="ah" d="M0,0 L10,5 L0,10 z"/></marker></defs>`;
+  s+=`<text class="hd" x="${lx}" y="16" text-anchor="middle">Input</text><text class="hd" x="${rx}" y="16" text-anchor="middle">Output</text>`;
+  const cy=top+7+rows*rowH/2,ry=rows*rowH/2+4;
+  s+=`<ellipse cx="${lx}" cy="${cy}" rx="38" ry="${ry}"/><ellipse cx="${rx}" cy="${cy}" rx="38" ry="${ry}"/>`;
+  pairs.forEach(([x,y])=>{const a=yAt(xs.indexOf(x),xs.length),b=yAt(ys.indexOf(y),ys.length);
+    s+=`<line x1="${lx+20}" y1="${a}" x2="${rx-22}" y2="${b}" marker-end="url(#${id})"/>`});
+  xs.forEach((x,i)=>{s+=`<text x="${lx}" y="${yAt(i,xs.length)+6}" text-anchor="middle">${num(x)}</text>`});
+  ys.forEach((y,i)=>{s+=`<text x="${rx}" y="${yAt(i,ys.length)+6}" text-anchor="middle">${num(y)}</text>`});
+  return s+'</svg>'}
+const vtable=(pairs,xl='x',yl='y')=>`<table class="vt"><tr><th>${xl}</th>${pairs.map(p=>`<td>${num(p[0])}</td>`).join('')}</tr><tr><th>${yl}</th>${pairs.map(p=>`<td>${num(p[1])}</td>`).join('')}</tr></table>`;
+
+/* ===================== generators (each takes difficulty d = 1..5) ===================== */
+const par=v=>v<0?`(${num(v)})`:num(v);
+const lcm=(a,b)=>Math.abs(a*b)/gcd(a,b);
+const INT_POS=[R(1),R(2),R(3)];
+const INTS=[1,2,3,4].flatMap(n=>[R(n),R(-n)]);
+const INT_NEG=INTS.filter(m=>m.n<0);
+const FRACS=SLOPES.filter(m=>m.d>1),FRAC_POS=FRACS.filter(m=>m.n>0),FRAC_NEG=FRACS.filter(m=>m.n<0);
+const slopeFor=d=>pick(d<=1?INT_POS:d===2?INTS:d===3?FRAC_POS:d===4?FRACS:FRAC_NEG.concat(FRACS));
+const ratio=(dy,dx)=>{if(Math.abs(dx)===1)return num(dy*dx);const r=R(dy,dx);return frac(num(dy),num(dx))+(r.n===dy&&r.d===dx?'':' = '+rHTML(r))};
+const det2=(a1,b1,a2,b2)=>a1*b2-a2*b1;
+
+/* ---------- lines & graphs ---------- */
+function interceptForm(sign){ // Ax + By = C with integer intercepts; sign 'pos'|'neg'|undefined for B
+  return tryGen(()=>{const A=rand(1,4),B=sign==='pos'?rand(1,4):sign==='neg'?-rand(1,4):nz(-4,4),k=pick([-2,-1,1,2]);if(gcd(A,B)!==1||(A===1&&Math.abs(B)===1&&sign))return null;
+    const xi=B*k,yi=A*k;if(Math.abs(xi)>8||Math.abs(yi)>8)return null;return{A,B,C:A*B*k,xi,yi}})}
+const interceptHow=(A,B,C,xi,yi)=>[
+  `<i>x</i>-intercept: let ${M(V('y')+' = 0')}, so ${M(expr([[R(A),'x']])+' = '+num(C))} and ${M(V('x')+' = '+num(xi))}.`,
+  `<i>y</i>-intercept: let ${M(V('x')+' = 0')}, so ${M(expr([[R(B),'y']])+' = '+num(C))} and ${M(V('y')+' = '+num(yi))}.`];
+function graphSlopeInt(m,b){const y2=b+m.n;
+  return{q:`Graph ${M(slopeInt(m,R(b)))}`,a:`<div>Slope ${M(rHTML(m))}, <i>y</i>-intercept ${M(pt(0,b))}</div>`,
+    graph:graphSVG({lines:[{m,b:R(b)}],points:[{x:0,y:b},{x:m.d,y:y2}]}),
+    how:[`Plot the <i>y</i>-intercept ${M(pt(0,b))}.`,`Use the slope ${M(rHTML(m))}: go ${m.n<0?'down':'up'} ${Math.abs(m.n)} and right ${m.d} to reach ${M(pt(m.d,y2))}.`,'Draw the line through the two points.']}}
+function graphStd(sign){const{A,B,C,xi,yi}=interceptForm(sign);
+  return{q:`Graph ${M(stdForm(A,B,C))}`,a:`<div><i>x</i>-intercept ${M(pt(xi,0))}<br><i>y</i>-intercept ${M(pt(0,yi))}<div class="sub">${M(slopeInt(R(-A,B),R(yi)))}</div></div>`,
+    graph:graphSVG({lines:[{m:R(-A,B),b:R(yi)}],points:[{x:xi,y:0},{x:0,y:yi}]}),
+    how:[...interceptHow(A,B,C,xi,yi),'Plot both intercepts and draw the line through them.']}}
+function graphHoriz(){const b=nz(-6,6);return{q:`Graph ${M(V('y')+' = '+num(b))}`,a:`<div>Horizontal line through ${M(pt(0,b))}</div>`,graph:graphSVG({lines:[{m:R(0),b:R(b)}]}),
+  how:[`Every point on this line has <i>y</i>-value ${num(b)}, whatever <i>x</i> is.`,`Draw the horizontal line through ${M(pt(0,b))}.`]}}
+function graphVert(){const a=nz(-6,6);return{q:`Graph ${M(V('x')+' = '+num(a))}`,a:`<div>Vertical line through ${M(pt(a,0))}</div>`,graph:graphSVG({lines:[{vx:a}]}),
+  how:[`Every point on this line has <i>x</i>-value ${num(a)}, whatever <i>y</i> is.`,`Draw the vertical line through ${M(pt(a,0))}.`]}}
+function genGraphLine(d){
+  if(d<=1)return graphSlopeInt(pick(INT_POS),rand(0,4));
+  if(d===2)return Math.random()<.7?tryGen(()=>{const m=pick(INTS),b=rand(-5,5);return Math.abs(b+m.n)<=9?graphSlopeInt(m,b):null}):graphHoriz();
+  if(d===3)return Math.random()<.75?graphSlopeInt(pick(FRACS),rand(-5,5)):graphVert();
+  if(d===4)return graphStd('pos');
+  return Math.random()<.6?graphStd('neg'):graphSlopeInt(pick(FRAC_NEG),rand(-5,-1))}
+
+function genSlopeGraph(d){return tryGen(()=>{
+  const q=g=>`${ins('Find the slope of the line.')}<div class="qgraph">${g}</div>`;
+  if(d===2&&Math.random()<.3){const b=nz(-6,6),x1=rand(-7,1),x2=x1+rand(3,6);
+    return{q:q(graphSVG({lines:[{m:R(0),b:R(b)}],points:[{x:x1,y:b},{x:x2,y:b}]})),a:`<div>Slope = 0<div class="sub">horizontal line</div></div>`,
+      how:[`From ${M(pt(x1,b))} to ${M(pt(x2,b))} the rise is 0 and the run is ${x2-x1}.`,`Slope = ${M(frac(0,x2-x1)+' = 0')}. Every horizontal line has slope 0.`]}}
+  if(d===4&&Math.random()<.2){const a=nz(-6,6),y1=rand(-7,1),y2=y1+rand(3,6);
+    return{q:q(graphSVG({lines:[{vx:a}],points:[{x:a,y:y1},{x:a,y:y2}]})),a:`<div>Slope is undefined<div class="sub">vertical line</div></div>`,
+      how:[`From ${M(pt(a,y1))} to ${M(pt(a,y2))} the rise is ${y2-y1} and the run is 0.`,'Dividing by 0 is impossible, so the slope of a vertical line is undefined.']}}
+  const m=d<=1?pick(INT_POS):d===2?pick(INT_NEG):d===3?pick(FRAC_POS):d===4?pick(Math.random()<.6?FRAC_NEG:FRACS):pick(FRACS);
+  const k=d===4&&Math.random()<.4?2:d===5?pick([1,2]):1,dx=m.d*k,dy=m.n*k,x1=rand(-8,8-dx),y1=dy>0?rand(-8,8-dy):rand(-8-dy,8);
+  const b=R(y1*m.d-m.n*x1,m.d),marked=d<5,p2=pt(x1+dx,y1+dy);
+  return{q:q(graphSVG({lines:[{m,b}],points:marked?[{x:x1,y:y1},{x:x1+dx,y:y1+dy}]:[]})),
+    a:`<div>Slope = ${M(rHTML(m))}</div>`,
+    how:[marked?`Use the marked points ${M(pt(x1,y1))} and ${M(p2)}.`:`Find two points where the line crosses grid corners exactly, for example ${M(pt(x1,y1))} and ${M(p2)}.`,
+      `Going left to right: rise ${num(dy)} (${dy<0?'down':'up'} ${Math.abs(dy)}), run ${dx}.`,
+      `Slope = ${M(`${frac(num(dy),dx)}${m.d!==dx?' = '+rHTML(m):''}`)}${k>1?' (simplify)':''}.`]}})}
+
+function genTwoPoints(d){
+  if(d===5&&Math.random()<.25){const a=nz(-7,7),y1=rand(-7,7);let y2;do{y2=rand(-7,7)}while(y2===y1);
+    return{q:`Write the equation of the line that passes through ${M(pt(a,y1))} and ${M(pt(a,y2))}.`,a:`<div>${M(V('x')+' = '+num(a))}<div class="sub">vertical line</div></div>`,
+      how:[`Both points have <i>x</i>-value ${num(a)}, so the run is 0 and the slope is undefined.`,`The line is vertical: every point has ${M(V('x')+' = '+num(a))}.`]}}
+  return tryGen(()=>{
+    const m=d<=1?pick(INT_POS):d===2?pick(INTS):d===3?pick(FRAC_POS):d===4?(Math.random()<.25?R(0):pick(FRACS)):pick(FRAC_NEG);
+    const b=d<=1?rand(0,5):rand(-6,6);let x1,x2;
+    if(d<=1){x1=0;x2=rand(1,4)}else{x1=m.d*rand(-3,3);x2=x1+m.d*pick(d===5?[2,3,-2,-3]:[1,2,-1]);if(x1===0||x2===0)return null}
+    if(x1===x2)return null;const y1=Math.round(rval(m)*x1+b),y2=Math.round(rval(m)*x2+b);
+    if([x1,x2,y1,y2].some(v=>Math.abs(v)>9))return null;
+    const how=[`Slope: ${M(`${V('m')} = ${frac(`${num(y2)} ${MINUS} ${par(y1)}`,`${num(x2)} ${MINUS} ${par(x1)}`)} = ${ratio(y2-y1,x2-x1)}`)}.`];
+    if(x1===0)how.push(`${M(pt(0,y1))} is on the <i>y</i>-axis, so the <i>y</i>-intercept is ${M(V('b')+' = '+num(b))}.`);
+    else how.push(`Substitute ${M(pt(x1,y1))} into ${M(`${V('y')} = ${V('mx')} + ${V('b')}`)}: ${M(`${num(y1)} = ${rHTML(m)}(${num(x1)}) + ${V('b')}`)}, so ${M(V('b')+' = '+num(b))}.`);
+    how.push(`Write ${M(slopeInt(m,R(b)))}.`);
+    return{q:`Write the equation of the line that passes through ${M(pt(x1,y1))} and ${M(pt(x2,y2))}.`,
+      a:`<div>${M(slopeInt(m,R(b)))}${m.n&&x1?`<div class="sub">point-slope: ${M(ptSlope(m,x1,y1))}</div>`:''}</div>`,how}})}
+
+function genPointLine(d){return tryGen(()=>{
+  const kind=d<=1?'slope':d===2?pick(['slope','parallel']):d===3?pick(['parallel','perp']):d===4?pick(['perp','parallelStd']):pick(['perpStd','perpStd','parallelStd']);
+  let m;
+  if(d<=1)m=pick(INTS);
+  else if(d===2)m=kind==='slope'?pick(FRACS):pick(INTS);
+  else if(d===3)m=kind==='perp'?pick([R(1,2),R(-1,2),R(1,3),R(-1,3),R(1,4),R(-1,4),R(1),R(-1)]):pick(SLOPES);
+  else m=pick(SLOPES);
+  const b=rand(-6,6),x1=m.d*nz(-3,3),y1=Math.round(rval(m)*x1+b);
+  if(Math.abs(x1)>9||Math.abs(y1)>9)return null;let q,how=[];
+  if(kind==='slope')q=`Write the equation of the line with slope ${M(rHTML(m))} that passes through ${M(pt(x1,y1))}.`;
+  else{const par_=kind.startsWith('parallel'),std=kind.endsWith('Std'),mg=par_?m:R(-m.d,m.n),bg=rand(-6,6);if(par_&&bg===b)return null;
+    let given;if(std){let A=-mg.n,B=mg.d,C=mg.d*bg;if(A<0){A=-A;B=-B;C=-C}given=stdForm(A,B,C)}else given=slopeInt(mg,R(bg));
+    q=`Write the equation of the line ${par_?'parallel':'perpendicular'} to ${M(given)} that passes through ${M(pt(x1,y1))}.`;
+    how.push(std?`Solve the given equation for ${V('y')}: ${M(slopeInt(mg,R(bg)))}. Its slope is ${M(rHTML(mg))}.`:`The given line has slope ${M(rHTML(mg))}.`);
+    how.push(par_?`Parallel lines have the same slope, so use ${M(rHTML(m))}.`:`Perpendicular slopes are opposite reciprocals, so use ${M(rHTML(m))}.`)}
+  how.push(`Point-slope form: ${M(ptSlope(m,x1,y1))}.`,`Distribute and solve for ${V('y')}: ${M(slopeInt(m,R(b)))}.`);
+  return{q,a:`<div>${M(slopeInt(m,R(b)))}<div class="sub">point-slope: ${M(ptSlope(m,x1,y1))}</div></div>`,how}})}
+
+/* ---------- functions ---------- */
+function relPairs(wantFn,lo=-6,hi=9,repY){return tryGen(()=>{const n=rand(4,5),xs=new Set();while(xs.size<n)xs.add(rand(lo,hi));
+  const pairs=[...xs].map(x=>[x,rand(lo,hi)]);let dup=null,rep=false;
+  if(!wantFn){const i=rand(0,n-1);let y;do{y=rand(lo,hi)}while(y===pairs[i][1]);const j=(i+1+rand(0,n-2))%n;pairs[j]=[pairs[i][0],y];dup={x:pairs[i][0],y1:pairs[i][1],y2:y}}
+  else if(repY){const i=rand(0,n-1),j=(i+1+rand(0,n-2))%n;pairs[j][1]=pairs[i][1];rep=true}
+  return{pairs:shuffle(pairs),fn:wantFn,dup,repY:rep}})}
+const FN_POOL={1:['set','table','line','vline'],2:['set','table','map','pts'],3:['map','pts','parab','abs','circle'],4:['side','cubic','sidev','circle','set','table'],5:['side','sidev','cubic','vline','map','set','table','pts']};
+function genFunction(d){const t=pick(FN_POOL[d]||FN_POOL[3]);
+  if(['set','table','map'].includes(t)){
+    const r=relPairs(Math.random()<.5,d<=1?0:-6,9,d>=4);let shown;
+    if(t==='set')shown=`<div class="rel">{${r.pairs.map(([x,y])=>M(pt(x,y))).join(', ')}}</div>`;
+    else if(t==='table')shown=vtable(r.pairs);else shown=mapSVG(r.pairs);
+    const a=r.fn?`<b>Yes</b> — each input has exactly one output.`:`<b>No</b> — the input ${M(num(r.dup.x))} has two outputs, ${M(num(r.dup.y1))} and ${M(num(r.dup.y2))}.`;
+    const how=['A function gives each input (<i>x</i>-value) exactly one output (<i>y</i>-value).',
+      t==='map'?'Check each input on the left: a function has exactly one arrow leaving each input.':'Look for an <i>x</i>-value that appears more than once.',
+      r.fn?(r.repY?'No input repeats. An output may repeat; that is still a function.':'No input repeats, so it is a function.')
+        :`The input ${M(num(r.dup.x))} goes to both ${M(num(r.dup.y1))} and ${M(num(r.dup.y2))}, so it is not a function.`];
+    return{q:`${ins('Is this relation a function? Explain.')}${shown}`,a:`<div>${a}</div>`,how}}
+  const h=rand(-3,3),k=rand(-3,3);let paths=[],lines=[],points=[],fn=true,why=null,how=null;
+  switch(t){
+    case'parab':{const a=pick([.25,.5,-.25,-.5]);paths=[sampleX(x=>a*(x-h)**2+k)];break}
+    case'abs':{const a=pick([1,2,-1,.5]);paths=[sampleX(x=>a*Math.abs(x-h)+k)];break}
+    case'line':{lines=[{m:pick(SLOPES),b:R(k)}];break}
+    case'cubic':{const a=pick([.05,-.05,.08]);paths=[sampleX(x=>a*(x-h)**3+k)];break}
+    case'side':{const a=pick([.25,.5,-.25,-.5]);paths=[sampleY(y=>a*(y-k)**2+h)];fn=false;break}
+    case'circle':{const r=rand(3,6),c=[];for(let i=0;i<=72;i++){const t=i*Math.PI/36;c.push([h+r*Math.cos(t),k+r*Math.sin(t)])}paths=[c];fn=false;break}
+    case'vline':{lines=[{vx:nz(-6,6)}];fn=false;break}
+    case'sidev':{const a=pick([1,-1,.5]);paths=[sampleY(y=>a*Math.abs(y-k)+h)];fn=false;break}
+    default:{const r=relPairs(Math.random()<.5,-7,7,d>=5);points=r.pairs.map(([x,y])=>({x,y}));fn=r.fn;
+      why=fn?'no two points share the same <i>x</i>-value.':`${M(pt(r.dup.x,r.dup.y1))} and ${M(pt(r.dup.x,r.dup.y2))} have the same <i>x</i>-value.`;
+      how=['A function gives each <i>x</i>-value exactly one <i>y</i>-value.','Look for two points stacked directly above one another (same <i>x</i>-value).',
+        fn?'No two points are stacked vertically, so it is a function.':`${M(pt(r.dup.x,r.dup.y1))} and ${M(pt(r.dup.x,r.dup.y2))} are stacked, so it is not a function.`]}}
+  if(!why)why=fn?'every vertical line crosses the graph at most once (it passes the vertical line test).':'a vertical line crosses the graph more than once (it fails the vertical line test).';
+  if(!how)how=['Use the vertical line test: imagine sliding a vertical line across the graph.',
+    fn?'It never touches the graph at more than one point, so each <i>x</i> has one <i>y</i>: a function.':'Somewhere it touches the graph at two or more points, so some <i>x</i> has more than one <i>y</i>: not a function.'];
+  return{q:`${ins('Is this relation a function? Explain.')}<div class="qgraph">${graphSVG({lines,paths,points})}</div>`,a:`<div><b>${fn?'Yes':'No'}</b> — ${why}</div>`,how}}
+
+/* ---------- word problems ---------- */
+const wp=s=>`<span class="wp">${s}</span>`;
+const WORD=[
+  {lv:1,f:()=>{const job=pick(['plumber','electrician','dog groomer','piano tuner','carpet cleaner']),f=pick([40,50,60,75,80,90]),r=pick([20,25,30,40,50]),h=rand(2,5);
+    return{q:wp(`A ${job} charges a ${money(f)} service fee plus ${money(r)} per hour. Write an equation for the total cost ${V('C')} of a job that takes ${V('h')} hours. Then find the cost of a ${h}-hour job.`),
+      a:`<div>${M(linEq('C','h',r,f))}<br>${money(r*h+f)}</div>`,
+      how:[`The hourly rate ${money(r)} is the slope; the one-time fee ${money(f)} is the starting value (<i>y</i>-intercept).`,`Substitute ${M(V('h')+' = '+h)}: ${M(`${r}(${h}) + ${f} = ${r*h+f}`)}.`]}}},
+  {lv:1,f:()=>{const e=pick([1000,1500,2000,3000]),r=pick([200,300,400,500]),h=rand(2,4);
+    return{q:wp(`A hiker starts at an elevation of ${e.toLocaleString('en-US')} feet and climbs ${r} feet per hour. Write an equation for the elevation ${V('E')} after ${V('t')} hours. What is the elevation after ${h} hours?`),
+      a:`<div>${M(linEq('E','t',r,e))}<br>${(e+r*h).toLocaleString('en-US')} feet</div>`,
+      how:[`The climbing rate ${r} ft per hour is the slope; the starting elevation ${e} is the <i>y</i>-intercept.`,`Substitute ${M(V('t')+' = '+h)}: ${M(`${r}(${h}) + ${e} = ${e+r*h}`)}.`]}}},
+  {lv:2,f:()=>{const s=pick([40,60,75,80,120,150]),r=pick([15,20,25,30,35,40]),w=rand(5,14),T=s+r*w;
+    return{q:wp(`A savings account has ${money(s)} in it, and ${money(r)} is deposited every week. Write an equation for the balance ${V('B')} after ${V('w')} weeks. After how many weeks will the balance be ${money(T)}?`),
+      a:`<div>${M(linEq('B','w',r,s))}<br>${w} weeks</div>`,
+      how:[`The weekly deposit ${money(r)} is the slope; the starting ${money(s)} is the <i>y</i>-intercept.`,`Set ${M(`${r}${V('w')} + ${s} = ${T}`)}. Subtract ${s}: ${M(`${r}${V('w')} = ${T-s}`)}. Divide by ${r}: ${M(V('w')+' = '+w)}.`]}}},
+  {lv:2,f:()=>{const r=pick([5,8,10,12,15,20,25]),k=rand(8,20);
+    return{q:wp(`A tank holds ${(r*k).toLocaleString('en-US')} gallons of water and drains at ${r} gallons per minute. Write an equation for the amount of water ${V('W')} left after ${V('t')} minutes. How long until the tank is empty?`),
+      a:`<div>${M(linEq('W','t',-r,r*k))}<br>${k} minutes</div>`,
+      how:[`The amount goes down ${r} each minute, so the slope is ${num(-r)}; the starting ${r*k} gallons is the <i>y</i>-intercept.`,`Empty means ${M(V('W')+' = 0')}: ${M(`0 = ${MINUS}${r}${V('t')} + ${r*k}`)}, so ${M(`${r}${V('t')} = ${r*k}`)} and ${M(V('t')+' = '+k)}.`]}}},
+  {lv:3,f:()=>{const L=pick([10,12,14,15,16,18]),r=pick([.5,.75,1.25,1.5]),h=pick([2,4,6]);
+    return{q:wp(`A candle is ${L} inches tall and burns down ${r} inch per hour. Write an equation for the candle's height ${V('H')} after ${V('t')} hours. How tall is it after ${h} hours?`),
+      a:`<div>${M(linEq('H','t',-r,L))}<br>${num(L-r*h)} inches</div>`,
+      how:[`The height drops ${r} inch per hour, so the slope is ${num(-r)}; the starting height ${L} is the <i>y</i>-intercept.`,`Substitute ${M(V('t')+' = '+h)}: ${M(`${MINUS}${r}(${h}) + ${L} = ${num(L-r*h)}`)}.`]}}},
+  {lv:3,f:()=>{const s=pick([25,30,40,50]),r=pick([3.5,4,4.5,5.25]),n=Math.floor(s/r)-rand(1,3),left=rnd(s-r*n,2);
+    return{q:wp(`A ${money(s)} gift card is used to buy drinks that cost ${money(r)} each. Write an equation for the balance ${V('B')} after ${V('d')} drinks. What is the balance after ${n} drinks?`),
+      a:`<div>${M(linEq('B','d',-r,s,v=>money(v).slice(1)))}<br>$${left.toFixed(2)}</div>`,
+      how:[`The balance drops ${money(r)} per drink, so the slope is ${MINUS}${money(r).slice(1)}; the starting ${money(s)} is the <i>y</i>-intercept.`,`Substitute ${M(V('d')+' = '+n)}: ${M(`${MINUS}${money(r).slice(1)}(${n}) + ${s} = ${left.toFixed(2)}`)}.`]}}},
+  {lv:4,f:()=>{const r=pick([2,2.5,3,3.5]),f=pick([3,4,5,6]),m1=rand(2,5),m2=m1+rand(3,8),c1=f+r*m1,c2=f+r*m2;
+    return{q:wp(`A taxi ride of ${m1} miles costs ${money(c1)}, and a ride of ${m2} miles costs ${money(c2)}. The cost is a linear function of the distance. Write an equation for the cost ${V('C')} of a ride of ${V('m')} miles. What does the slope mean?`),
+      a:`<div>${M(linEq('C','m',r,f))}<br><span style="font-size:.8em">Slope: each mile adds ${money(r)} to the cost.</span></div>`,
+      how:[`Slope = change in cost ÷ change in miles = ${M(frac(`${num(c2)} ${MINUS} ${num(c1)}`,`${m2} ${MINUS} ${m1}`)+' = '+frac(num(c2-c1),m2-m1)+' = '+num(r))}.`,
+        `Use a point to find the intercept: ${M(`${num(c1)} = ${num(r)}(${m1}) + ${V('b')}`)}, so ${M(V('b')+' = '+num(f))}.`]}}},
+  {lv:4,f:()=>{const f=pick([25,30,49,50,75,99]),r=pick([20,25,29,35,40]),m1=rand(2,4),m2=m1+rand(3,6),c1=f+r*m1,c2=f+r*m2;
+    return{q:wp(`A gym charges a one-time joining fee plus a monthly fee. After ${m1} months a member has paid ${money(c1)} in all; after ${m2} months, ${money(c2)}. Write an equation for the total paid ${V('T')} after ${V('m')} months. What is the joining fee?`),
+      a:`<div>${M(linEq('T','m',r,f))}<br>Joining fee: ${money(f)} <span style="font-size:.8em">(the <i>y</i>-intercept)</span></div>`,
+      how:[`Monthly fee (slope) = ${M(frac(`${c2} ${MINUS} ${c1}`,`${m2} ${MINUS} ${m1}`)+' = '+frac(c2-c1,m2-m1)+' = '+r)}.`,
+        `Find the intercept: ${M(`${c1} = ${r}(${m1}) + ${V('b')}`)}, so ${M(V('b')+' = '+f)}. The intercept is the joining fee.`]}}},
+  {lv:5,f:()=>{const r=pick([.5,.75]),N=rand(16,28),L=r*N,t1=rand(2,4),t2=t1+rand(3,6),h1=L-r*t1,h2=L-r*t2;
+    return{q:wp(`A candle burns at a constant rate. After ${t1} hours it is ${h1} inches tall, and after ${t2} hours it is ${h2} inches tall. Write an equation for its height ${V('H')} after ${V('t')} hours. When will it burn out?`),
+      a:`<div>${M(linEq('H','t',-r,L))}<br>After ${N} hours</div>`,
+      how:[`Slope = ${M(frac(`${h2} ${MINUS} ${h1}`,`${t2} ${MINUS} ${t1}`)+' = '+frac(num(h2-h1),t2-t1)+' = '+num(-r))} inch per hour.`,
+        `Intercept: ${M(`${h1} = ${MINUS}${r}(${t1}) + ${V('b')}`)}, so ${M(V('b')+' = '+L)} (the starting height).`,
+        `Burns out when ${M(V('H')+' = 0')}: ${M(`${r}${V('t')} = ${L}`)}, so ${M(V('t')+' = '+N)}.`]}}},
+  {lv:5,f:()=>{const r=pick([2,3,4]),T0=pick([70,72,74,76,78]),t1=rand(1,3),t2=t1+rand(2,4),target=T0-r*rand(t2+1,t2+4),tt=(T0-target)/r,T1=T0-r*t1,T2=T0-r*t2,clock=h=>`${h>12?h-12:h} p.m.`;
+    return{q:wp(`On a fall afternoon the temperature dropped at a constant rate. At ${clock(12+t1)} it was ${T1}°F, and at ${clock(12+t2)} it was ${T2}°F. Write an equation for the temperature ${V('T')} at ${V('h')} hours after noon. At what time will it reach ${target}°F?`),
+      a:`<div>${M(linEq('T','h',-r,T0))}<br>${clock(12+tt)}</div>`,
+      how:[`Use the points ${M(pt(t1,T1))} and ${M(pt(t2,T2))}: slope = ${M(frac(`${T2} ${MINUS} ${T1}`,`${t2} ${MINUS} ${t1}`)+' = '+num(-r))} degrees per hour.`,
+        `Intercept: ${M(`${T1} = ${MINUS}${r}(${t1}) + ${V('b')}`)}, so ${M(V('b')+' = '+T0)} (the temperature at noon).`,
+        `Set ${M(`${MINUS}${r}${V('h')} + ${T0} = ${target}`)}: ${M(V('h')+' = '+tt)} hours after noon, which is ${clock(12+tt)}.`]}}},
+];
+function genWord(d){return pick(WORD.filter(w=>w.lv===d)).f()}
+
+/* ---------- arithmetic sequences ---------- */
+const fN=v=>`${V('f')}(${v})`,nV=V('n');
+const explicitRule=(a,d)=>`${fN(nV)} = ${num(a)} ${d<0?MINUS:'+'} ${Math.abs(d)}(${nV} ${MINUS} 1) for ${nV} ≥ 1`;
+const recRule=(a,d)=>`${M(`${fN(1)} = ${num(a)}`)}<br>${M(`${fN(nV)} = ${fN(`${nV} ${MINUS} 1`)} ${d<0?MINUS:'+'} ${Math.abs(d)}`)} ${M(`for ${nV} ≥ 2`)}`;
+const genRule=`${fN(nV)} = ${fN(1)} + ${V('d')}(${nV} ${MINUS} 1)`;
+function genArith(lv){return tryGen(()=>{
+  const pos=lv<=2,a=pos?rand(1,15):nz(-12,20),d=pos?rand(2,8):pick([-2,-3,-4,-5,-6,-7,-8,3,4,5,6,7,9]),term=n=>a+d*(n-1),sd=`${d<0?MINUS:'+'} ${Math.abs(d)}`;
+  if(lv>=3&&lv<5&&d>0&&Math.random()<.6)return null; // favor negative differences at levels 3-4
+  const seq=`<div class="seq">${M([1,2,3,4].map(n=>num(term(n))).join(', ')+', …')}</div>`;
+  const diffStep=`Common difference: ${M(`${num(term(2))} ${MINUS} ${par(a)} = ${num(d)}`)}.`;
+  const type=lv===1?pick(['next','nth']):lv===2?'rules':lv===3?pick(['rules','nth']):lv===4?pick(['which','rec']):pick(['two','two','which']);
+  if(type==='next')return{q:ins('Find the next two terms of the arithmetic sequence.')+seq,a:`<div>${M(num(term(5))+', '+num(term(6)))}</div>`,
+    how:[diffStep,`Add ${d} to the last term twice: ${M(`${num(term(4))} + ${d} = ${num(term(5))}`)}, ${M(`${num(term(5))} + ${d} = ${num(term(6))}`)}.`]};
+  if(type==='rules')return{q:ins('Write an explicit rule and a recursive rule for the arithmetic sequence.')+seq,
+    a:`<div>${M(explicitRule(a,d))}<br><br>${recRule(a,d)}</div>`,
+    how:[diffStep,`Explicit: ${M(genRule)} with first term ${num(a)} and ${M(V('d')+' = '+num(d))}.`,`Recursive: state ${M(fN(1)+' = '+num(a))}; each term is the previous term ${d<0?'minus':'plus'} ${Math.abs(d)}.`]};
+  if(type==='nth'){const n=lv===1?rand(8,12):rand(20,40);return{q:ins(`Find the ${ord(n)} term of the arithmetic sequence.`)+seq,
+    a:`<div>${M(fN(n)+' = '+num(term(n)))}</div>`,
+    how:[diffStep,`Use ${M(genRule)}: ${M(`${fN(n)} = ${num(a)} ${sd}(${n} ${MINUS} 1) = ${num(a)} ${sd}(${n-1}) = ${num(term(n))}`)}.`]}}
+  if(type==='which'){const n=rand(10,30),v=term(n);return{q:ins(`Which term of the arithmetic sequence is ${num(v)}?`)+seq,
+    a:`<div>The ${ord(n)} term</div>`,
+    how:[diffStep,`Set ${M(`${num(a)} ${sd}(${nV} ${MINUS} 1) = ${num(v)}`)}.`,
+      `${a<0?'Add':'Subtract'} ${Math.abs(a)}: ${M(`${num(d)}(${nV} ${MINUS} 1) = ${num(v-a)}`)}. Divide by ${num(d)}: ${M(`${nV} ${MINUS} 1 = ${n-1}`)}, so ${M(nV+' = '+n)}.`]}}
+  if(type==='two'){const i=rand(2,5),j=i+rand(3,7),fi=term(i),fj=term(j);return{q:ins(`In an arithmetic sequence, ${M(fN(i)+' = '+num(fi))} and ${M(fN(j)+' = '+num(fj))}. Write an explicit rule.`),
+    a:`<div>${M(explicitRule(a,d))}</div>`,
+    how:[`From term ${i} to term ${j} is ${j-i} steps: ${M(`${V('d')} = ${frac(`${num(fj)} ${MINUS} ${par(fi)}`,`${j} ${MINUS} ${i}`)} = ${frac(num(fj-fi),j-i)} = ${num(d)}`)}.`,
+      `Work back to the first term: ${M(`${fN(1)} = ${num(fi)} ${MINUS} ${par(d)}(${i-1}) = ${num(a)}`)}.`,`Use ${M(genRule)}.`]}}
+  return{q:ins('Write the first four terms and an explicit rule for the sequence.')+`<div class="seq">${recRule(a,d)}</div>`,
+    a:`<div>${M([1,2,3,4].map(n=>num(term(n))).join(', '))}<br>${M(explicitRule(a,d))}</div>`,
+    how:[`Start at ${num(a)} and ${d<0?'subtract':'add'} ${Math.abs(d)} each time.`,`The explicit rule uses the same first term (${num(a)}) and common difference (${num(d)}) in ${M(genRule)}.`]}})}
+
+/* ---------- data & models ---------- */
+const MODELS=[
+  {xd:'hours studied',yd:'test score',m:[3.8,4.2,4.6,5.1],b:[58.5,61,63.2],mi:4,bi:60,xr:[2,9],dp:1,slope:m=>`each additional hour of studying adds about ${m} points to the predicted score.`,
+    intc:b=>`A student who studies 0 hours is predicted to score about ${b}. This makes sense.`},
+  {xd:'age of a car (years)',yd:'value (thousands of dollars)',m:[-1.85,-2.15,-2.4],b:[26.4,28.9,31.5],mi:-2,bi:28,xr:[1,9],dp:2,slope:m=>`the predicted value drops about $${Math.round(-m*1000).toLocaleString('en-US')} per year.`,
+    intc:b=>`A new car (0 years old) is predicted to be worth about $${Math.round(b*1000).toLocaleString('en-US')}. This makes sense.`},
+  {xd:'daily high temperature (°F)',yd:'cold drinks sold',m:[3.2,3.6,4.1],b:[-152,-138,-165],mi:4,bi:-150,xr:[72,95],dp:1,slope:m=>`each 1°F increase adds about ${m} predicted drinks sold.`,
+    intc:b=>`At 0°F the model predicts ${num(b)} drinks, which is impossible. 0°F is far outside the data, so the intercept has no real meaning here.`},
+  {xd:'arm span (inches)',yd:'height (inches)',m:[.92,.96,1.03],b:[2.8,4.6,1.4],mi:1,bi:3,xr:[55,74],dp:1,slope:m=>`each extra inch of arm span adds about ${m} inch to the predicted height.`,
+    intc:b=>`An arm span of 0 inches would predict a height of ${b} inches. No person has a 0-inch arm span, so the intercept has no real meaning.`},
+  {xd:'years since 2010',yd:'average movie ticket price (dollars)',m:[.21,.23,.26],b:[7.85,7.92,8.04],xr:[3,15],dp:2,slope:m=>`the predicted ticket price rises about $${m.toFixed(2)} per year.`,
+    intc:b=>`In 2010 (0 years since 2010) the predicted average ticket price is about $${b.toFixed(2)}.`},
+  {xd:'minutes of exercise per day',yd:'resting heart rate (beats per minute)',m:[-.28,-.31,-.35],b:[77.5,79,81.2],xr:[10,60],dp:1,slope:m=>`each extra minute of daily exercise lowers the predicted heart rate by about ${-m} beats per minute.`,
+    intc:b=>`A person who exercises 0 minutes per day is predicted to have a resting heart rate of about ${b} beats per minute.`},
+  {xd:'hours of practice per week',yd:'free throws made out of 50',m:[1.7,2.1,2.4],b:[18.5,20.2,22.6],mi:2,bi:20,xr:[2,10],dp:1,slope:m=>`each extra hour of practice adds about ${m} predicted free throws made.`,
+    intc:b=>`With 0 hours of practice a player is predicted to make about ${b} of 50 free throws.`},
+];
+const fx=(v,d)=>(v<0?MINUS:'')+Math.abs(v).toFixed(d);
+function genPredict(lv){
+  const type=lv===1?'predY':lv===2?'predY':lv===3?'slope':lv===4?'solveX':pick(['intc','solveX']);
+  const c=pick(lv===1?MODELS.filter(x=>x.mi!==undefined):MODELS),m=lv===1?c.mi:pick(c.m),b=lv===1?c.bi:pick(c.b),dp=lv===1?0:c.dp;
+  const eq=M(linEq('y','x',m,b)),bs=`${b<0?MINUS:'+'} ${Math.abs(b)}`;
+  const intro=`The line of best fit for ${c.xd} ${M(V('x'))} and ${c.yd} ${M(V('y'))} is ${eq}.`;
+  if(type==='predY'){const x=rand(c.xr[0],c.xr[1]),y=rnd(m*x+b,dp);
+    return{q:wp(`${intro} Predict the ${c.yd.replace(/ \(.*\)/,'')} when ${M(V('x')+' = '+x)}.`),a:`<div>${M(V('y')+(dp?' ≈ ':' = ')+fx(y,dp))}</div>`,
+      how:[`Substitute ${M(V('x')+' = '+x)} into the equation: ${M(`${V('y')} = ${num(m)}(${x}) ${bs}`)}.`,`Evaluate: ${M(V('y')+(dp?' ≈ ':' = ')+fx(y,dp))}.`]}}
+  if(type==='solveX'){const x0=rand(c.xr[0],c.xr[1]),y=Math.round(m*x0+b),x=rnd((y-b)/m,1);
+    return{q:wp(`${intro} Predict the ${c.xd.replace(/ \(.*\)/,'')} when ${M(V('y')+' = '+num(y))}.`),a:`<div>${M(V('x')+' ≈ '+fx(x,1))}</div>`,
+      how:[`Substitute ${M(V('y')+' = '+num(y))}: ${M(`${num(y)} = ${coefD(m)}${V('x')} ${bs}`)}.`,
+        `${b<0?'Add':'Subtract'} ${Math.abs(b)} ${b<0?'to':'from'} both sides: ${M(`${num(rnd(y-b,4))} = ${coefD(m)}${V('x')}`)}.`,
+        `Divide by ${num(m)}: ${M(V('x')+' ≈ '+fx(x,1))}.`]}}
+  if(type==='intc')return{q:wp(`${intro} What does the <i>y</i>-intercept mean in this situation? Does it make sense?`),a:`<div style="font-size:.85em">${c.intc(b)}</div>`,
+    how:[`The <i>y</i>-intercept is the constant term, ${M(num(b))}: the predicted ${c.yd.replace(/ \(.*\)/,'')} when ${M(V('x')+' = 0')}.`,'Decide whether x = 0 is realistic and close to the data. If not, the intercept has no practical meaning.']};
+  return{q:wp(`${intro} What does the slope mean in this situation?`),a:`<div style="font-size:.85em">Slope ${M(num(m))}: ${c.slope(m)}</div>`,
+    how:[`The slope is the coefficient of ${M(V('x'))}: ${M(num(m))}.`,`It is the change in ${M(V('y'))} (${c.yd}) for each increase of 1 in ${M(V('x'))} (${c.xd}). Say it in those units.`]}}
+
+function linreg(pts){const n=pts.length,mx=pts.reduce((s,p)=>s+p[0],0)/n,my=pts.reduce((s,p)=>s+p[1],0)/n;
+  let sxy=0,sxx=0,syy=0;pts.forEach(([x,y])=>{sxy+=(x-mx)*(y-my);sxx+=(x-mx)**2;syy+=(y-my)**2});
+  const a=sxy/sxx;return{a,b:my-a*mx,r:syy?sxy/Math.sqrt(sxx*syy):0}}
+function corrWords(r){const s=Math.abs(r),dir=r>0?'positive':'negative';
+  if(s>=.8)return`Strong ${dir} correlation`;if(s>=.5)return`Moderate ${dir} correlation`;if(s>=.3)return`Weak ${dir} correlation`;return'Little or no correlation'}
+function genRegress(lv){
+  if(lv>=4)return tryGen(()=>{const n=lv===4?rand(5,6):7,m=pick(lv===4?[-3,-2,2,3,4]:[-3,-2.5,-1.5,1.5,2.5,3]),b=rand(3,25)+(m<0?25:0),sd=lv===4?1.2:pick([2,3]),x0=rand(1,3),st=pick([1,2]);
+    const pts=[];for(let i=0;i<n;i++){const x=x0+i*st;pts.push([x,Math.round(m*x+b+gauss()*sd)])}
+    if(pts.some(p=>p[1]<0))return null;const L=linreg(pts);if(Math.abs(L.r)<(lv===4?.9:.7))return null;
+    const a=+L.a.toFixed(2),bb=+L.b.toFixed(2),r=+L.r.toFixed(2);
+    return{q:ins(`Use a calculator to find the line of best fit and the correlation coefficient ${M(V('r'))}. Round to the nearest hundredth. Describe the correlation.`)+vtable(pts),
+      a:`<div>${M(`${V('y')} = ${f2(a)}${V('x')} ${bb<0?MINUS:'+'} ${Math.abs(bb).toFixed(2)}`)}<br>${M(V('r')+' = '+f2(r))}<div class="sub">${corrWords(r)}</div></div>`,
+      graph:scatterSVG(pts,{line:L}),
+      how:['Enter the <i>x</i>-values in L1 and the <i>y</i>-values in L2 (or in a Desmos table).','Run linear regression: LinReg(ax+b) on a TI calculator, or type y₁ ~ mx₁ + b in Desmos. Turn on diagnostics to see <i>r</i>.',
+        `Read the slope, intercept and ${M(V('r'))}. ${M(V('r'))} is ${r<0?'negative':'positive'}, so the correlation is ${r<0?'negative':'positive'}; |${V('r')}| = ${Math.abs(r).toFixed(2)} tells how strong.`]}});
+  if(lv>=2)return tryGen(()=>{const target=pick(lv===2?[.9,0,-.9]:[.9,.5,0,-.5,-.9]),sd={.9:.9,.5:2.4,0:2.2}[Math.abs(target)],k=target===0?0:Math.sign(target)*.8;
+    const pts=[];for(let i=0;i<12;i++){const x=rnd(.5+Math.random()*9,2);pts.push([x,rnd(5+k*(x-5)+gauss()*sd,2)])}
+    if(pts.some(p=>p[1]<.3||p[1]>9.7))return null;const r=linreg(pts).r;if(Math.abs(r-target)>.08)return null;
+    const opts=lv===2?`${MINUS}0.9, 0, 0.9`:`${MINUS}0.9, ${MINUS}0.5, 0, 0.5, 0.9`;
+    return{q:ins(`Describe the correlation. Which is the best estimate of ${M(V('r'))}: ${M(opts)}?`)+`<div class="qgraph">${scatterSVG(pts,{labels:false})}</div>`,
+      a:`<div>${corrWords(target)}<br>${M(V('r')+' ≈ '+num(target))}</div>`,
+      how:['Direction: points rising left to right mean positive; falling mean negative; no trend means little or no correlation.',
+        'Strength: the more tightly the points hug a straight line, the closer |<i>r</i>| is to 1. A loose cloud is near 0.5; no pattern is near 0.']}});
+  const vals=shuffle([.12,.27,.41,.58,.74,.86,.93,.97]).slice(0,4).map(v=>v*sgn()),abs=vals.map(Math.abs),hi=vals[abs.indexOf(Math.max(...abs))],lo=vals[abs.indexOf(Math.min(...abs))];
+  return{q:ins(`Which correlation coefficient shows the strongest relationship? Which shows the weakest?`)+`<div class="seq">${vals.map(v=>M(V('r')+' = '+num(v))).join(',&ensp; ')}</div>`,
+    a:`<div>Strongest: ${M(V('r')+' = '+num(hi))}<br>Weakest: ${M(V('r')+' = '+num(lo))}</div>`,
+    how:['Compare the absolute values |<i>r</i>|. Closest to 1 is the strongest; closest to 0 is the weakest.','The sign only tells the direction (positive or negative), not the strength.']}}
+
+/* ---------- systems ---------- */
+function genSysGraph(lv){return tryGen(()=>{
+  const h=lv<=1?rand(0,4):rand(-4,4),k=lv<=1?rand(0,4):rand(-4,4);
+  const pool1=lv<=1?[R(1),R(2),R(-1),R(-2),R(0)]:lv===2?INTS.concat([R(0)]):lv===3?INTS.concat([R(0)]):SLOPES.concat([R(0)]);
+  const pool2=lv===3?FRACS:pool1;
+  const ok1=pool1.filter(m=>h%m.d===0),ok2=pool2.filter(m=>h%m.d===0);if(!ok1.length||!ok2.length)return null;
+  const m1=pick(ok1),m2=pick(ok2);
+  if(rval(m1)===rval(m2))return null;const b1=Math.round(k-rval(m1)*h),b2=Math.round(k-rval(m2)*h);
+  if(Math.abs(b1)>7||Math.abs(b2)>7)return null;
+  const e1=slopeInt(m1,R(b1));let e2,std=false;
+  if(lv===5){if(m2.n===0)return null;let A=-m2.n,B=m2.d,C=m2.d*b2;if(A<0){A=-A;B=-B;C=-C}e2=stdForm(A,B,C);std=true}else e2=slopeInt(m2,R(b2));
+  const how=[];if(std)how.push(`Rewrite the second equation in slope-intercept form: ${M(slopeInt(m2,R(b2)))}.`);
+  how.push('Graph each line: plot its <i>y</i>-intercept, then use its slope to find more points.',`The lines cross at ${M(pt(h,k))}, so that is the solution.`,'Check: the point makes both equations true.');
+  return{q:`Solve by graphing.${sys(e1,e2)}`,a:`<div>${M(pt(h,k))}</div>`,
+    graph:graphSVG({lines:[{m:m1,b:R(b1)},{m:m2,b:R(b2)}],points:[{x:h,y:k,label:true}]}),how}})}
+
+function genSub(lv){return tryGen(()=>{
+  const big=lv>=4,h=lv<=1?rand(0,5):rand(-6,6),k=lv<=1?rand(0,5):rand(-6,6);
+  const A=lv<=1?rand(1,3):nz(big?-7:-5,big?7:5),B=lv<=1?rand(1,3):nz(big?-7:-5,big?7:5),C=A*h+B*k,e2=stdForm(A,B,C);
+  const style=lv<=1?'y':lv===2?pick(['y','x']):lv===3?'one':lv===4?pick(['one','y','x']):'neg';
+  let e1,a1,b1,how;
+  if(style==='y'){const a=lv<=1?rand(1,3):nz(-4,4),c=k-a*h;if(Math.abs(c)>12)return null;const ex=expr([[R(a),'x'],[R(c),'']]);e1=`${V('y')} = ${ex}`;a1=-a;b1=1;
+    how=[`The first equation is already solved for ${V('y')}. Substitute ${M(ex)} for ${V('y')} in ${M(e2)}.`,`Solve for ${V('x')}: ${M(V('x')+' = '+num(h))}.`,`Substitute back: ${M(V('y')+' = '+num(k))}.`]}
+  else if(style==='x'){const a=nz(-4,4),c=h-a*k;if(Math.abs(c)>12)return null;const ex=expr([[R(a),'y'],[R(c),'']]);e1=`${V('x')} = ${ex}`;a1=1;b1=-a;
+    how=[`The first equation is already solved for ${V('x')}. Substitute ${M(ex)} for ${V('x')} in ${M(e2)}.`,`Solve for ${V('y')}: ${M(V('y')+' = '+num(k))}.`,`Substitute back: ${M(V('x')+' = '+num(h))}.`]}
+  else{const u=style==='neg'?-1:1,c1=nz(-4,4),forX=Math.random()<.5;
+    if(forX){a1=u;b1=c1;const Ce=u*h+c1*k;e1=stdForm(a1,b1,Ce);
+      how=[`${V('x')} has coefficient ${num(u)} in ${M(e1)}, so solve it for ${V('x')}: ${M(`${V('x')} = ${expr(u===1?[[R(-c1),'y'],[R(Ce),'']]:[[R(c1),'y'],[R(-Ce),'']])}`)}.`,`Substitute that into ${M(e2)} and solve: ${M(V('y')+' = '+num(k))}.`,`Substitute back: ${M(V('x')+' = '+num(h))}.`]}
+    else{a1=c1;b1=u;const Ce=c1*h+u*k;e1=stdForm(a1,b1,Ce);
+      how=[`${V('y')} has coefficient ${num(u)} in ${M(e1)}, so solve it for ${V('y')}: ${M(`${V('y')} = ${expr(u===1?[[R(-c1),'x'],[R(Ce),'']]:[[R(c1),'x'],[R(-Ce),'']])}`)}.`,`Substitute that into ${M(e2)} and solve: ${M(V('x')+' = '+num(h))}.`,`Substitute back: ${M(V('y')+' = '+num(k))}.`]}}
+  if(det2(a1,b1,A,B)===0||Math.abs(C)>(big?45:30))return null;
+  return{q:`Solve by substitution.${Math.random()<.5?sys(e1,e2):sys(e2,e1)}`,a:`<div>${M(pt(h,k))}</div>`,how}})}
+
+function elimHow(A1,B1,A2,B2,h,k){let s,v;
+  if(A1===-A2){s='The <i>x</i>-coefficients are opposites, so add the equations to eliminate <i>x</i>.';v='x'}
+  else if(B1===-B2){s='The <i>y</i>-coefficients are opposites, so add the equations to eliminate <i>y</i>.';v='y'}
+  else if(A1===A2){s='The <i>x</i>-coefficients are equal, so subtract the equations to eliminate <i>x</i>.';v='x'}
+  else if(B1===B2){s='The <i>y</i>-coefficients are equal, so subtract the equations to eliminate <i>y</i>.';v='y'}
+  else if(A2%A1===0){s=`Multiply the first equation by ${num(-A2/A1)} so the <i>x</i>-coefficients are opposites, then add.`;v='x'}
+  else if(A1%A2===0){s=`Multiply the second equation by ${num(-A1/A2)} so the <i>x</i>-coefficients are opposites, then add.`;v='x'}
+  else if(B2%B1===0){s=`Multiply the first equation by ${num(-B2/B1)} so the <i>y</i>-coefficients are opposites, then add.`;v='y'}
+  else if(B1%B2===0){s=`Multiply the second equation by ${num(-B1/B2)} so the <i>y</i>-coefficients are opposites, then add.`;v='y'}
+  else{const L=lcm(A1,A2);s=`Multiply the first equation by ${num(L/A1)} and the second by ${num(-L/A2)} so the <i>x</i>-coefficients are ${L} and ${num(-L)}, then add.`;v='x'}
+  const o=v==='x'?'y':'x',ov=v==='x'?k:h,vv=v==='x'?h:k;
+  return[s,`Solve the result: ${M(V(o)+' = '+num(ov))}.`,`Substitute into either original equation: ${M(V(v)+' = '+num(vv))}.`]}
+function genElim(lv){return tryGen(()=>{
+  const h=lv<=1?rand(1,5):rand(-5,5),k=lv<=1?rand(1,5):rand(-5,5);let A1,B1,A2,B2;
+  if(lv<=1){A1=rand(1,4);B1=rand(1,4);A2=rand(1,4);B2=-B1;if(A2===A1)return null}
+  else if(lv===2){if(Math.random()<.5){A1=nz(-6,6);B1=nz(-6,6);A2=nz(-6,6);B2=-B1;if(Math.abs(A2)===Math.abs(A1))return null}
+    else{A1=nz(-6,6);B1=nz(-6,6);A2=nz(-6,6);B2=B1;if(Math.abs(A2)===Math.abs(A1))return null}}
+  else if(lv<=4){A1=nz(-4,4);const t=lv===3?pick([2,3]):pick([-2,-3]);A2=t*A1;if(Math.abs(A2)>9)return null;B1=nz(-6,6);B2=nz(-6,6);if(Math.abs(B1)===Math.abs(B2))return null}
+  else{const P=[[2,3],[3,4],[2,5],[3,5],[4,5],[3,2],[4,3],[5,2],[5,3]];const[p,q]=pick(P),[r,s]=pick(P);A1=p*sgn();A2=q*sgn();B1=r*sgn();B2=s*sgn();if(gcd(A1,A2)!==1||gcd(B1,B2)!==1)return null}
+  if(A1*B2-A2*B1===0)return null;
+  if(Math.random()<.5){[A1,B1]=[B1,A1];[A2,B2]=[B2,A2]}
+  const C1=A1*h+B1*k,C2=A2*h+B2*k;if(Math.abs(C1)>40||Math.abs(C2)>40)return null;
+  return{q:`Solve by elimination.${sys(stdForm(A1,B1,C1),stdForm(A2,B2,C2))}`,a:`<div>${M(pt(h,k))}</div>`,how:elimHow(A1,B1,A2,B2,h,k)}})}
+
+/* ---------- inequalities ---------- */
+const lineKind=d=>d?'Use a dashed line because the symbol is &lt; or &gt; (points on the line are not solutions).':'Use a solid line because the symbol is &le; or &ge; (points on the line are solutions).';
+function genIneq(lv){
+  const op=pick(lv<=1?['<','>']:Object.keys(OPS)),dashed=op.length===1,bnd=dashed?'Dashed':'Solid',test='Check with a test point such as (0, 0) if it is not on the line.';
+  const kind=lv<=1?pick(['si','si','hv']):lv<=3?(lv===2&&Math.random()<.3?'hv':'si'):lv===4?'std+':'std-';
+  if(kind==='si'){const m=lv<=1?pick(INT_POS):lv===2?pick(INTS):pick(FRACS),b=lv<=1?rand(0,4):rand(-5,5),up=op[0]==='>';
+    return{q:`Graph ${M(`${V('y')} ${OPS[op]} ${expr([[m,'x'],[R(b),'']])}`)}`,a:`<div>${bnd} line ${M(slopeInt(m,R(b)))}<br>Shade ${up?'above':'below'}</div>`,
+      graph:graphSVG({lines:[{m,b:R(b),dashed,shade:up?'above':'below'}],points:[{x:0,y:b}]}),
+      how:[`Graph the boundary line ${M(slopeInt(m,R(b)))} using its intercept and slope.`,lineKind(dashed),`${V('y')} is ${up?'greater':'less'} than the line, so shade ${up?'above':'below'} it.`,test]}}
+  if(kind.startsWith('std')){const{A,B,C,xi,yi}=interceptForm(kind==='std+'?'pos':'neg'),op2=B<0?FLIP[op]:op,up=op2[0]==='>',m=R(-A,B);
+    return{q:`Graph ${M(`${expr([[R(A),'x'],[R(B),'y']])} ${OPS[op]} ${num(C)}`)}`,
+      a:`<div>${bnd} line through ${M(pt(xi,0))} and ${M(pt(0,yi))}<br>Shade ${up?'above':'below'}</div>`,
+      graph:graphSVG({lines:[{m,b:R(yi),dashed,shade:up?'above':'below'}],points:[{x:xi,y:0},{x:0,y:yi}]}),
+      how:[`Graph the boundary using intercepts: ${M(pt(xi,0))} and ${M(pt(0,yi))}.`,lineKind(dashed),
+        `To decide where to shade, solve for ${V('y')}: ${M(`${V('y')} ${OPS[op2]} ${expr([[m,'x'],[R(yi),'']])}`)}${B<0?' (dividing by a negative flips the symbol)':''}. Shade ${up?'above':'below'}.`,test]}}
+  if(Math.random()<.5){const b=nz(-6,6),up=op[0]==='>';
+    return{q:`Graph ${M(`${V('y')} ${OPS[op]} ${num(b)}`)}`,a:`<div>${bnd} horizontal line ${M(V('y')+' = '+num(b))}<br>Shade ${up?'above':'below'}</div>`,
+      graph:graphSVG({lines:[{m:R(0),b:R(b),dashed,shade:up?'above':'below'}]}),
+      how:[`The boundary ${M(V('y')+' = '+num(b))} is a horizontal line.`,lineKind(dashed),`${V('y')}-values ${up?'greater':'less'} than ${num(b)} are ${up?'above':'below'} it, so shade ${up?'above':'below'}.`]}}
+  const a=nz(-6,6),right=op[0]==='>';
+  return{q:`Graph ${M(`${V('x')} ${OPS[op]} ${num(a)}`)}`,a:`<div>${bnd} vertical line ${M(V('x')+' = '+num(a))}<br>Shade ${right?'right':'left'}</div>`,
+    graph:graphSVG({lines:[{vx:a,dashed,shade:right?'right':'left'}]}),
+    how:[`The boundary ${M(V('x')+' = '+num(a))} is a vertical line.`,lineKind(dashed),`${V('x')}-values ${right?'greater':'less'} than ${num(a)} are to the ${right?'right':'left'}, so shade ${right?'right':'left'}.`]}}
+
+const BUILTIN=[
+  {id:'function',name:'Is it a function?',gen:genFunction},
+  {id:'slope-graph',name:'Read slope from a graph',gen:genSlopeGraph},
+  {id:'graph-line',name:'Graph a line',gen:genGraphLine},
+  {id:'two-points',name:'Equation from two points',gen:genTwoPoints},
+  {id:'point-line',name:'Line through a point (slope, parallel, perpendicular)',gen:genPointLine},
+  {id:'word',name:'Linear equation word problem',gen:genWord},
+  {id:'arith',name:'Arithmetic sequences',gen:genArith},
+  {id:'predict',name:'Prediction with a linear model',gen:genPredict},
+  {id:'regress',name:'Linear regression & correlation',gen:genRegress},
+  {id:'sys-graph',name:'Solve a system by graphing',gen:genSysGraph},
+  {id:'sys-sub',name:'Solve by substitution',gen:genSub},
+  {id:'sys-elim',name:'Solve by elimination',gen:genElim},
+  {id:'ineq',name:'Graph a linear inequality',gen:genIneq},
+];
+
+/* ===================== state ===================== */
+const KEY='alg1-warmups-v2',OLDKEY='alg1-warmups-v1';
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmtText=s=>esc(s).replace(/\^(-?\w+|\([^)]*\))/g,'<sup>$1</sup>');
+const todayStr=()=>{const d=new Date();return`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+function newClass(name,students){return{id:'k-'+uid(),name,students,level:3,enabled:{},log:[],absent:{date:'',names:[]}}}
+function defaults(){return{version:2,classes:[],current:null,custom:[]}}
+function fromV1(o){const k=newClass('B Period',o.students||[]);k.level=3;k.enabled=Object.assign({},o.enabled||{});
+  (o.custom||[]).forEach(c=>{if(c.enabled===false)k.enabled[c.id]=false});k.log=o.log||[];k.absent=o.absent||{date:'',names:[]};
+  return{version:2,classes:[k],current:k.id,custom:(o.custom||[]).map(c=>({id:c.id,name:c.name,items:c.items||[]}))}}
+function normalize(d){if(!d||typeof d!=='object')throw 0;if(!Array.isArray(d.classes)){if(!Array.isArray(d.students))throw 0;return fromV1(d)}
+  d.version=2;d.custom=d.custom||[];d.classes.forEach(k=>{k.level=k.level||3;k.enabled=k.enabled||{};k.log=k.log||[];k.absent=k.absent||{date:'',names:[]};k.students=k.students||[]});
+  if(!d.classes.some(k=>k.id===d.current))d.current=d.classes[0]?d.classes[0].id:null;return d}
+let S=defaults(),canSave=true;
+function load(){try{const raw=localStorage.getItem(KEY);if(raw){S=normalize(JSON.parse(raw));return}
+  const old=localStorage.getItem(OLDKEY);if(old){S=fromV1(JSON.parse(old));return}}catch(e){canSave=false}S=defaults()}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));canSave=true}catch(e){canSave=false}renderBanner()}
+const C=()=>S.classes.find(k=>k.id===S.current)||null;
+
+function cats(all){const k=C(),on=id=>!k||k.enabled[id]!==false;
+  const list=BUILTIN.map(c=>({...c,builtin:true,enabled:on(c.id)}))
+  .concat(S.custom.map(c=>({...c,builtin:false,enabled:on(c.id),gen:()=>{const it=pick(c.items);return{q:fmtText(it.q),a:`<div>${fmtText(it.a)}</div>`}}})));
+  return all?list:list.filter(c=>c.enabled&&(c.builtin||c.items.length))}
+const catName=id=>(cats(true).find(c=>c.id===id)||{name:'(deleted skill)'}).name;
+function absentToday(){const k=C();if(k.absent.date!==todayStr())k.absent={date:todayStr(),names:[]};return k.absent.names}
+
+function stats(){const k=C(),st={},today=todayStr();
+  k.students.forEach(n=>st[n]={turns:0,last:0,by:{}});
+  const catCorrect={},todayUses={};
+  for(const r of k.log){const s=st[r.student];
+    if(r.t.slice(0,10)===today)todayUses[r.cat]=(todayUses[r.cat]||0)+1;
+    if(r.result==='correct'){(catCorrect[r.cat]=catCorrect[r.cat]||new Set()).add(r.student)}
+    if(!s)continue;s.turns++;s.last=Math.max(s.last,Date.parse(r.t));
+    const b=s.by[r.cat]=s.by[r.cat]||{c:0,i:0,n:0};b[r.result==='correct'?'c':r.result==='incorrect'?'i':'n']++}
+  return{st,catCorrect,todayUses}}
+function cmp(a,b){for(let i=0;i<a.length;i++)if(a[i]!==b[i])return a[i]-b[i];return 0}
+function pickStudent(exclude=[]){const{st}=stats(),ab=absentToday();
+  const c=C().students.filter(n=>!ab.includes(n)&&!exclude.includes(n));if(!c.length)return null;
+  return c.map(n=>({n,k:[st[n].turns,st[n].last,Math.random()]})).sort((a,b)=>cmp(a.k,b.k))[0].n}
+function pickCat(student,exclude=[]){const{st,catCorrect,todayUses}=stats(),list=cats().filter(c=>!exclude.includes(c.id));
+  if(!list.length)return null;const by=(st[student]||{by:{}}).by;
+  return list.map(c=>{const b=by[c.id]||{c:0,i:0,n:0};return{c,k:[b.c>0?1:0,b.c+b.i,todayUses[c.id]||0,(catCorrect[c.id]||new Set()).size,Math.random()]}})
+    .sort((a,b)=>cmp(a.k,b.k))[0].c}
+
+/* ===================== UI ===================== */
+let tab='warm',round=null,toastTimer=null,editing=null;
+const $=s=>document.querySelector(s);
+const pickLevel=()=>rand(1,(C()&&C().level)||3);
+function genFor(cat,d){try{return cat.gen(d)}catch(e){return{q:'Could not make a problem — press New problem.',a:''}}}
+function fill(slot,cat){slot.cat=cat.id;slot.lv=cat.builtin?pickLevel():null;slot.p=genFor(cat,slot.lv);slot.shown=false}
+function makeSlot(student,cat){const s={student,revealed:false,result:null};fill(s,cat);return s}
+function newRound(){if(!C())return;const s1=pickStudent();if(!s1){round=null;return render()}
+  const c1=pickCat(s1);if(!c1){round=null;return render()}const slots=[makeSlot(s1,c1)];
+  const s2=pickStudent([s1]);if(s2){const c2=pickCat(s2,[c1.id])||pickCat(s2);slots.push(makeSlot(s2,c2))}
+  round={slots};render()}
+const activeIdx=()=>round?round.slots.findIndex(s=>!s.result):-1;
+const usesCat=id=>round&&round.slots.some(s=>s.cat===id);
+
+function renderBanner(){$('#banner').innerHTML=canSave?'':'<div class="banner">This browser isn\'t letting the app save. Use Export backup on the Setup tab before closing, or open the file in Chrome or Edge.</div>'}
+function renderHeader(){
+  $('#classbox').innerHTML=S.classes.length?`<select id="classpick" title="Switch class">${S.classes.map(k=>`<option value="${k.id}" ${k.id===S.current?'selected':''}>${esc(k.name)}</option>`).join('')}</select>`:'';
+  $('#lvlbox').innerHTML=C()?`<span class="lvl" title="Each problem is a random level from 1 up to this maximum"><span>Max difficulty</span>${[1,2,3,4,5].map(v=>`<button data-act="lvl" data-v="${v}" class="${v===C().level?'on':''}">${v}</button>`).join('')}</span>`:'';
+  if(!C()){$('#today').innerHTML='';return}
+  const ab=absentToday(),n=C().log.filter(r=>r.t.slice(0,10)===todayStr()).length;
+  $('#today').innerHTML=`<span>Today: ${n} turn${n===1?'':'s'}</span>`+(ab.length?`<span>· Absent:</span>`+ab.map(a=>`<button class="chip" data-act="unabsent" data-name="${esc(a)}" title="Mark present">${esc(a)} ✕</button>`).join(''):'')}
+
+const noClass=()=>`<div class="card empty"><p>No classes yet.</p><button class="btn primary" data-tab="setup">Add a class in Setup</button></div>`;
+const howHTML=h=>h&&h.length?`<div class="how"><div class="howt">How to solve</div><ol>${h.map(x=>`<li>${x}</li>`).join('')}</ol></div>`:'';
+function viewWarm(){if(!C())return noClass();
+  if(!C().students.length)return`<div class="card empty"><p>${esc(C().name)} has no students yet. Add the roster on the Setup tab.</p></div>`;
+  if(!cats().length)return`<div class="card empty"><p>No skills are turned on for ${esc(C().name)}. Turn some on in Setup.</p></div>`;
+  if(!round)return`<div class="card empty"><button class="btn primary big" data-act="newround">Start warm-up</button>
+    <p class="muted">${pickStudent()?'Shows two problems. Names stay hidden until you reveal them.':'Everyone is marked absent today.'}</p></div>`;
+  const act=activeIdx(),all=cats(),lab={correct:['✓ Correct','c-good'],incorrect:['✗ Incorrect','c-bad'],noattempt:["Didn't attempt",'c-na']};
+  let h=`<div class="slots${round.slots.length===1?' one':''}">`;
+  round.slots.forEach((s,i)=>{
+    h+=`<div class="card slot${i===act?' active':''}${s.result?' done':''}">
+      <div class="slothead"><span class="pnum">${i+1}</span><span class="skill">${esc(catName(s.cat))}</span>${s.lv?`<span class="lvtag" title="Difficulty level">Level ${s.lv}</span>`:''}</div>
+      <div class="prob">${s.p.q}</div>
+      ${s.shown?`<div class="ans">${s.p.a||''}${s.p.graph||''}${howHTML(s.p.how)}</div>`:''}
+      <div class="whobox">`;
+    if(!s.revealed)h+=i===act?`<button class="btn primary big" data-act="reveal" data-i="${i}">Who's solving #${i+1}?</button>`
+      :`<span class="muted">Name appears after #${act+1} is marked.</span>`;
+    else h+=`<div class="who">${esc(s.student)}</div>${s.result?`<span class="tag big ${lab[s.result][1]}">${lab[s.result][0]}</span>`:''}`;
+    h+=`</div>`;
+    const grading=s.revealed&&!s.result;
+    if(grading)h+=`<div class="row">
+        <button class="btn res ${s.shown?'':'primary'}" data-act="toggle" data-i="${i}">${s.shown?'Hide answer':'Show answer'}</button>
+        <button class="btn res good" data-act="rec" data-i="${i}" data-r="correct">✓ Correct</button>
+        <button class="btn res bad" data-act="rec" data-i="${i}" data-r="incorrect">✗ Incorrect</button>
+        <button class="btn res na" data-act="rec" data-i="${i}" data-r="noattempt">Didn't attempt</button></div>
+      <div class="row"><button class="btn" data-act="absent" data-i="${i}">Absent today</button>
+        <button class="btn" data-act="someoneelse" data-i="${i}">Call someone else</button></div>`;
+    h+=`<div class="row small-row">
+        ${grading?'':`<button class="btn" data-act="toggle" data-i="${i}">${s.shown?'Hide answer':'Show answer'}</button>`}
+        ${s.result?'':`<button class="btn" data-act="newprob" data-i="${i}">New problem</button>
+        <select data-act="setcat" data-i="${i}" title="Change skill">${all.map(c=>`<option value="${c.id}" ${c.id===s.cat?'selected':''}>${esc(c.name)}</option>`).join('')}</select>`}
+      </div></div>`});
+  h+='</div>';
+  h+=act<0?`<div class="row center"><button class="btn primary big" data-act="newround">Next round</button></div>`:'';
+  return h+`<div class="kbd">Keys: Enter = reveal name / next round · 1 = correct · 2 = incorrect · 3 = didn't attempt · Space = show/hide answer for the current problem</div>`}
+
+function viewCov(){if(!C())return noClass();const{st,catCorrect}=stats(),list=cats(true).filter(c=>c.enabled),k=C(),n=k.students.length;
+  if(!n)return`<p>${esc(k.name)} has no students yet.</p>`;
+  let pairs=0;k.students.forEach(s=>list.forEach(c=>{if((st[s].by[c.id]||{}).c)pairs++}));
+  const tot=n*list.length;
+  let h=`<p><b>${esc(k.name)}:</b> <b>${pairs}</b> of ${tot} student–skill pairs answered correctly (${tot?Math.round(100*pairs/tot):0}%). Only skills turned on for this class are shown.</p>
+  <div class="legend"><span><b class="c-good">✓</b>got it right at least once</span><span><b class="c-bad">✗</b>tried, not right yet</span><span><b class="c-na">–</b>didn't attempt</span><span>small number = times asked</span></div>
+  <div class="tablewrap"><table class="cov"><thead><tr><th>Student</th><th>Turns</th>${list.map(c=>`<th>${esc(c.name)}</th>`).join('')}</tr></thead><tbody>`;
+  for(const s of k.students){h+=`<tr><td>${esc(s)}</td><td>${st[s].turns}</td>`;
+    for(const c of list){const b=st[s].by[c.id];if(!b){h+='<td class="cell"></td>';continue}
+      const t=b.c+b.i+b.n,cls=b.c?'c-good':b.i?'c-bad':'c-na',sym=b.c?'✓':b.i?'✗':'–';
+      h+=`<td class="cell ${cls}" title="${b.c} correct, ${b.i} incorrect, ${b.n} didn't attempt">${sym}${t>1?`<sup>${t}</sup>`:''}</td>`}
+    h+='</tr>'}
+  h+=`<tr><td><b>Class</b></td><td></td>${list.map(c=>{const kk=(catCorrect[c.id]||new Set());const got=k.students.filter(s=>kk.has(s)).length;return`<td class="small"><b>${got}/${n}</b> ✓</td>`}).join('')}</tr>`;
+  return h+'</tbody></table></div>'}
+
+function viewHist(){if(!C())return noClass();const log=C().log;if(!log.length)return`<p class="muted">No turns recorded yet for ${esc(C().name)}.</p>`;
+  const lab={correct:['Correct','c-good'],incorrect:['Incorrect','c-bad'],noattempt:["Didn't attempt",'c-na']};let h='',day='';
+  h+='<div class="tablewrap"><table class="hist"><tbody>';
+  [...log].reverse().forEach(r=>{const d=new Date(r.t),ds=d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'});
+    if(ds!==day){day=ds;h+=`<tr><th colspan="5">${ds}</th></tr>`}
+    h+=`<tr><td class="small muted">${d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'})}</td><td><b>${esc(r.student)}</b></td><td class="small">${esc(catName(r.cat))}${r.lv?`<br><span class="muted">Level ${r.lv}</span>`:''}</td>
+      <td class="p">${r.q||''}</td><td><span class="tag ${lab[r.result][1]}">${lab[r.result][0]}</span> <button class="btn sm" data-act="del" data-id="${r.id}" title="Delete this entry">✕</button></td></tr>`});
+  return h+'</tbody></table></div>'}
+
+function viewSetup(){const k=C();
+  let h=`<section class="set"><h2>Classes</h2>`;
+  if(!S.classes.length)h+=`<p>Add your first class below: give it a name and paste the student names.</p>`;
+  S.classes.forEach(c=>{h+=`<div class="classrow${c.id===S.current?' cur':''}"><span class="nm">${esc(c.name)}</span><span class="small muted">${c.students.length} student${c.students.length===1?'':'s'} · ${c.log.length} turn${c.log.length===1?'':'s'}</span>
+    ${c.id===S.current?'':`<button class="btn sm" data-act="selclass" data-id="${c.id}">Select</button>`}
+    <button class="btn sm" data-act="renclass" data-id="${c.id}">Rename</button><button class="btn sm danger" data-act="delclass" data-id="${c.id}">Delete</button></div>`});
+  h+=`<h3>Add a class</h3><input type="text" id="newcname" placeholder="Class name, e.g. 3rd Period" style="width:100%;margin-bottom:8px">
+    <textarea id="newcroster" rows="5" placeholder="Student names, one per line"></textarea>
+    <div class="row"><button class="btn primary" data-act="addclass">Add class</button></div></section>`;
+  if(k){h+=`<section class="set"><h2>${esc(k.name)} roster</h2><p class="small muted">One name per line. History is matched by name, so renaming a student starts them fresh.</p>
+    <textarea id="roster" rows="8">${esc(k.students.join('\n'))}</textarea><div class="row"><button class="btn primary" data-act="saveroster">Save roster</button></div></section>
+  <section class="set"><h2>Skills for ${esc(k.name)}</h2><p class="small muted">Only checked skills come up for this class. Each class has its own checkboxes, so periods can be at different places. Unchecking keeps a skill's history.</p>
+  <div class="row" style="margin:0 0 6px"><button class="btn sm" data-act="allon">Check all</button><button class="btn sm" data-act="alloff">Uncheck all</button></div>`;
+  cats(true).forEach(c=>{h+=`<div class="catrow"><label><input type="checkbox" data-act="togglecat" data-id="${c.id}" ${c.enabled?'checked':''}> ${esc(c.name)}
+    ${c.builtin?'<span class="small muted">generated</span>':`<span class="small muted">your list · ${c.items.length} problem${c.items.length===1?'':'s'}</span>`}</label>
+    ${c.builtin?'':`<button class="btn sm" data-act="editcat" data-id="${c.id}">Edit</button><button class="btn sm danger" data-act="delcat" data-id="${c.id}">Delete</button>`}</div>`});
+  const e=editing?S.custom.find(c=>c.id===editing):null;
+  h+=`<h3>${e?'Edit skill':'Add a skill'}</h3>
+    <p class="small muted">Skills you add are available to all your classes. Type one problem per line as <code>problem | answer</code>. Use ^ for exponents (x^2). Example: <code>Simplify 3(x − 4) + 2x | 5x − 12</code></p>
+    <input type="text" id="cname" placeholder="Skill name" value="${e?esc(e.name):''}" style="width:100%;margin-bottom:8px">
+    <textarea id="citems" rows="7" placeholder="Solve 2x + 5 = 17 | x = 6">${e?esc(e.items.map(i=>i.q+' | '+i.a).join('\n')):''}</textarea>
+    <div class="row"><button class="btn primary" data-act="savecat">${e?'Save changes':'Add skill'}</button>${e?'<button class="btn" data-act="canceledit">Cancel</button>':''}</div></section>`}
+  h+=`<section class="set"><h2>Backup &amp; sharing</h2>
+    <p class="small muted">Everything is saved in this browser. Export a backup now and then. History stays on this device only. A backup includes all classes, rosters, history and your added skills.</p>
+    <div class="row"><button class="btn primary" data-act="export">Export backup</button><button class="btn" data-act="import">Import backup</button></div>
+    <h3>Share added skills</h3><p class="small muted">Sends only the skills you added (no students or history), so another teacher can import them into their copy.</p>
+    <div class="row"><button class="btn" data-act="exportskills" ${S.custom.length?'':'disabled'}>Export my added skills</button><button class="btn" data-act="importskills">Import skills</button></div>
+    <h3>Clear history</h3><p class="small muted">Removes recorded turns and today's absences. Classes, rosters and skills are kept.</p>
+    <div class="row">${k?`<button class="btn danger" data-act="clearclass">Clear ${esc(k.name)} history</button>`:''}<button class="btn danger" data-act="clearall" ${S.classes.length?'':'disabled'}>Clear history for all classes</button></div></section>`;
+  return h}
+
+function render(){document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));renderHeader();renderBanner();
+  $('#main').innerHTML=tab==='warm'?viewWarm():tab==='cov'?viewCov():tab==='hist'?viewHist():viewSetup();
+  if(tab==='warm')fitSlots()}
+// Safety net: anything still wider than its card is allowed to wrap or shrink, so nothing runs off the edge.
+function fitSlots(){document.querySelectorAll('.slot').forEach(el=>{const right=el.getBoundingClientRect().right-parseFloat(getComputedStyle(el).paddingRight);
+  el.querySelectorAll('.math').forEach(m=>{if(m.getBoundingClientRect().right>right+1)m.style.whiteSpace='normal'});
+  el.querySelectorAll('table.vt').forEach(t=>{let f=parseFloat(getComputedStyle(t).fontSize);while(t.getBoundingClientRect().right>right+1&&f>11){f-=1;t.style.fontSize=f+'px'}})})}
+window.addEventListener('resize',()=>{if(tab==='warm')render()});
+
+function toast(msg,undo){clearTimeout(toastTimer);$('#toast').innerHTML=`<div class="toast"><span>${msg}</span>${undo?'<button data-act="undo">Undo</button>':''}</div>`;
+  window._undo=undo;toastTimer=setTimeout(()=>{$('#toast').innerHTML='';window._undo=null},6000)}
+
+function snapshot(){return JSON.parse(JSON.stringify(round))}
+function record(i,result){const s=round&&round.slots[i];if(!s||!s.revealed||s.result)return;const snap=snapshot(),k=C();
+  const id=uid();
+  k.log.push({id,t:new Date().toISOString(),student:s.student,cat:s.cat,lv:s.lv,result,q:s.p.q});save();
+  s.result=result;s.shown=true;const nx=round.slots[i+1];if(nx)nx.revealed=true;render();
+  const lab={correct:'✓ correct',incorrect:'✗ incorrect',noattempt:"didn't attempt"}[result];
+  toast(`${esc(s.student)}: ${lab}`,()=>{k.log=k.log.filter(r=>r.id!==id);save();round=snap;render()})}
+function replaceStudent(i,absent){const s=round.slots[i],snap=snapshot(),old=s.student,k=C();
+  if(absent){absentToday().push(old);save()}
+  const n=pickStudent(round.slots.map(x=>x.student));
+  if(!n){if(absent){k.absent.names=k.absent.names.filter(x=>x!==old);save()}return toast('No one else is available.')}
+  s.student=n;render();
+  toast(absent?`${esc(old)} marked absent today`:`Skipped ${esc(old)}`,()=>{if(absent){k.absent.names=k.absent.names.filter(x=>x!==old);save()}round=snap;render()})}
+const parseNames=t=>[...new Set(t.split('\n').map(s=>s.trim()).filter(Boolean))];
+// In-page dialogs (the hosted viewer blocks alert/confirm/prompt).
+function ask({title,body='',ok='OK',cancel='Cancel',danger=false,input=null,wide=false,extra=''}){return new Promise(res=>{
+  const m=$('#modal'),prev=document.activeElement;
+  m.innerHTML=`<div class="mback"><div class="mbox${wide?' wide':''}" role="dialog" aria-modal="true" aria-labelledby="mtitle"><h2 id="mtitle">${title}</h2>${body?`<div class="mbody">${body}</div>`:''}${input!==null?`<input type="text" id="minput" value="${esc(input)}" aria-label="${title}">`:''}${extra}<div class="row mrow">${cancel?`<button class="btn" id="mcancel">${cancel}</button>`:''}${ok?`<button class="btn ${danger?'dangerfill':'primary'}" id="mok">${ok}</button>`:''}</div></div></div>`;
+  const close=v=>{document.removeEventListener('keydown',kh,true);m.innerHTML='';try{prev&&prev.focus()}catch(e){}res(v)};
+  const okv=()=>input!==null?$('#minput').value:true,nov=input!==null?null:false;
+  const kh=e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();close(nov)}else if(e.key==='Enter'&&e.target.id==='minput'){e.preventDefault();e.stopPropagation();close(okv())}};
+  document.addEventListener('keydown',kh,true);
+  m.querySelector('.mback').addEventListener('click',e=>{if(e.target.classList.contains('mback'))close(nov)});
+  if($('#mcancel'))$('#mcancel').onclick=()=>close(nov);
+  if($('#mok'))$('#mok').onclick=()=>close(okv());
+  m._close=close;
+  const f=$('#minput')||$('#mok')||$('#mcancel');if(f){f.focus();if(f.select)f.select()}})}
+const modalOpen=()=>!!$('#modal').innerHTML;
+// Saving a file: Claude's save prompt on claude.ai, a normal download anywhere else, otherwise copyable text.
+const DL=(window.claude&&window.claude.use)?window.claude.use('downloads').catch(()=>null):Promise.resolve(null);
+async function offerFile(obj,filename,what){const text=JSON.stringify(obj,null,1);
+  const dl=await DL;
+  if(dl){try{await dl.save({filename,data:text});toast(`Saved ${esc(filename)}`);return}
+    catch(e){const c=e&&e.code;if(c==='declined')return;if(c==='rate_limited')return toast('A save prompt is already open.')}}
+  else if(!window.claude){const u=URL.createObjectURL(new Blob([text],{type:'application/json'})),l=document.createElement('a');
+    l.href=u;l.download=filename;document.body.appendChild(l);l.click();l.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);return}
+  ask({title:`Copy your ${what}`,wide:true,ok:'Copy',cancel:'Close',
+    body:`Saving files isn't available here. Copy this text and keep it somewhere safe, such as a note or an email to yourself. To restore it, choose Import and paste the text.`,
+    extra:`<textarea id="mtext" rows="9" readonly aria-label="${what} text">${esc(text)}</textarea>`});
+  $('#mok').onclick=async()=>{const ta=$('#mtext');try{await navigator.clipboard.writeText(text);toast('Copied')}catch(e){ta.focus();ta.select();toast('Text selected. Use Copy from your device\'s menu.')}}}
+function chooseImport(kind){
+  ask({title:kind==='backup'?'Import a backup':'Import skills',wide:true,ok:'Import pasted text',cancel:'Cancel',
+    body:kind==='backup'?'Choose a backup file, or paste backup text below. This replaces the classes, rosters, history and skills on this device.':'Choose a skills file, or paste skills text below. Skills with the same name are updated; the rest are added.',
+    extra:`<div class="row"><button class="btn" id="mfile">Choose file…</button></div><textarea id="mtext" rows="7" placeholder="Paste text here" aria-label="Paste text"></textarea>`});
+  const box=$('#modal');
+  $('#mfile').onclick=()=>{$(kind==='backup'?'#importFile':'#importSkills').click();box._close(false)};
+  $('#mok').onclick=()=>{const txt=$('#mtext').value.trim();if(!txt)return toast('Paste the text first.');box._close(false);importText(txt,kind)}}
+function importText(txt,kind){
+  if(kind==='backup'){let d;try{d=normalize(JSON.parse(txt))}catch(e){return ask({title:"That isn't a warm-up backup",body:'Check that you chose or pasted the whole backup, starting with { and ending with }.',cancel:null})}
+    const turns=d.classes.reduce((s,k)=>s+k.log.length,0);
+    return ask({title:'Replace everything on this device?',body:`The backup has ${d.classes.length} class${d.classes.length===1?'':'es'} and ${turns} recorded turn${turns===1?'':'s'}. It replaces what is here now.`,ok:'Replace',danger:true})
+      .then(ok=>{if(ok){S=d;save();round=null;render();toast('Backup imported')}})}
+  let list;try{const d=JSON.parse(txt);list=d&&d.kind==='warmup-skills'?d.skills:(d&&Array.isArray(d.custom)?d.custom:null);if(!Array.isArray(list))throw 0}
+  catch(e){return ask({title:"That isn't a skills file",body:'Use a file made with “Export my added skills”, or a full backup.',cancel:null})}
+  let added=0,upd=0;
+  list.forEach(sk=>{if(!sk||!sk.name||!Array.isArray(sk.items))return;const ex=S.custom.find(c=>c.id===sk.id||c.name.toLowerCase()===sk.name.toLowerCase());
+    if(ex){ex.name=sk.name;ex.items=sk.items;upd++}else{S.custom.push({id:sk.id||'c-'+uid(),name:sk.name,items:sk.items});added++}});
+  save();render();toast(`Skills imported: ${added} new, ${upd} updated`)}
+function setAll(on){const k=C();cats(true).forEach(c=>{k.enabled[c.id]=on});save();round=null;render()}
+
+document.addEventListener('click',e=>{if(e.target.closest('#modal'))return;const t=e.target.closest('[data-act],[data-tab]');if(!t||t.disabled)return;
+  if(t.dataset.tab){tab=t.dataset.tab;return render()}
+  const a=t.dataset.act;
+  if(a==='newround')return newRound();
+  if(a==='lvl'){C().level=+t.dataset.v;save();renderHeader();return toast(`Max difficulty for ${esc(C().name)}: ${t.dataset.v}. Applies to new problems.`)}
+  const i=+t.dataset.i,sl=round&&round.slots[i];
+  if(a==='reveal'){if(sl)sl.revealed=true;return render()}
+  if(a==='toggle'){if(sl)sl.shown=!sl.shown;return render()}
+  if(a==='newprob'){if(sl)fill(sl,cats(true).find(c=>c.id===sl.cat));return render()}
+  if(a==='rec')return record(i,t.dataset.r);
+  if(a==='absent')return replaceStudent(i,true);
+  if(a==='someoneelse')return replaceStudent(i,false);
+  if(a==='unabsent'){const k=C();k.absent.names=k.absent.names.filter(x=>x!==t.dataset.name);save();return render()}
+  if(a==='undo'){const u=window._undo;$('#toast').innerHTML='';window._undo=null;if(u)u();return}
+  if(a==='del'){const id=t.dataset.id;ask({title:'Delete this turn?',body:'It is removed from the history and coverage.',ok:'Delete',danger:true}).then(ok=>{if(ok){const k=C();k.log=k.log.filter(r=>r.id!==id);save();render()}});return}
+  if(a==='selclass'){S.current=t.dataset.id;round=null;save();return render()}
+  if(a==='addclass'){const name=$('#newcname').value.trim();if(!name){toast('Give the class a name.');$('#newcname').focus();return}
+    const k=newClass(name,parseNames($('#newcroster').value));S.classes.push(k);S.current=k.id;round=null;save();toast(`Added ${esc(name)}`);return render()}
+  if(a==='renclass'){const k=S.classes.find(c=>c.id===t.dataset.id);ask({title:'Rename class',input:k.name,ok:'Rename'}).then(n=>{if(n&&n.trim()){k.name=n.trim();save();render()}});return}
+  if(a==='delclass'){const k=S.classes.find(c=>c.id===t.dataset.id);
+    ask({title:`Delete ${esc(k.name)}?`,body:`This removes its roster and all ${k.log.length} recorded turn${k.log.length===1?'':'s'}. Export a backup first if you might want them.`,ok:'Delete class',danger:true}).then(ok=>{if(ok){
+      S.classes=S.classes.filter(c=>c!==k);if(S.current===k.id){S.current=S.classes[0]?S.classes[0].id:null;round=null}save();render()}});return}
+  if(a==='saveroster'){C().students=parseNames($('#roster').value);save();round=null;toast('Roster saved');return render()}
+  if(a==='allon')return setAll(true);
+  if(a==='alloff')return setAll(false);
+  if(a==='editcat'){editing=t.dataset.id;render();$('#cname').scrollIntoView({behavior:'smooth',block:'center'});return}
+  if(a==='canceledit'){editing=null;return render()}
+  if(a==='delcat'){const c=S.custom.find(c=>c.id===t.dataset.id);if(c)ask({title:`Delete “${esc(c.name)}”?`,body:'It is removed from all classes. Past turns stay in the history, marked as a deleted skill.',ok:'Delete skill',danger:true}).then(ok=>{if(ok){S.custom=S.custom.filter(x=>x!==c);save();if(usesCat(c.id))round=null;render()}});return}
+  if(a==='savecat'){const name=$('#cname').value.trim();const items=$('#citems').value.split('\n').map(l=>l.trim()).filter(Boolean).map(l=>{const i=l.indexOf('|');return i<0?{q:l,a:''}:{q:l.slice(0,i).trim(),a:l.slice(i+1).trim()}}).filter(x=>x.q);
+    if(!name){toast('Give the skill a name.');$('#cname').focus();return}if(!items.length){toast('Add at least one problem.');$('#citems').focus();return}
+    if(editing){const c=S.custom.find(c=>c.id===editing);c.name=name;c.items=items}else S.custom.push({id:'c-'+uid(),name,items});
+    editing=null;save();toast(`Saved "${esc(name)}"`);return render()}
+  if(a==='export')return offerFile(S,`warmups-backup-${todayStr()}.json`,'backup');
+  if(a==='import')return chooseImport('backup');
+  if(a==='exportskills')return offerFile({kind:'warmup-skills',version:1,skills:S.custom},`warmup-skills-${todayStr()}.json`,'skills');
+  if(a==='importskills')return chooseImport('skills');
+  if(a==='clearclass'){const k=C();ask({title:`Clear ${esc(k.name)} history?`,body:'All recorded turns for this class are removed. The roster and skills are kept.',ok:'Clear history',danger:true}).then(ok=>{if(ok){k.log=[];k.absent={date:'',names:[]};save();round=null;render()}});return}
+  if(a==='clearall'){ask({title:'Clear history for all classes?',body:'Recorded turns are removed for every class. Rosters and skills are kept. Export a backup first if you might want it.',ok:'Clear all history',danger:true}).then(ok=>{if(ok){S.classes.forEach(k=>{k.log=[];k.absent={date:'',names:[]}});save();round=null;render()}});return}
+});
+document.addEventListener('change',e=>{const t=e.target,a=t.dataset.act;
+  if(t.id==='classpick'){S.current=t.value;round=null;save();return render()}
+  if(a==='setcat'){fill(round.slots[+t.dataset.i],cats(true).find(c=>c.id===t.value));return render()}
+  if(a==='togglecat'){const id=t.dataset.id;C().enabled[id]=t.checked;save();if(!t.checked&&usesCat(id))round=null;return render()}
+  if((t.id==='importFile'||t.id==='importSkills')&&t.files[0]){const kind=t.id==='importFile'?'backup':'skills';t.files[0].text().then(txt=>importText(txt,kind)).finally(()=>{t.value=''})}});
+document.addEventListener('keydown',e=>{if(modalOpen()||tab!=='warm'||!C()||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='Enter'||e.key===' ')e.preventDefault();
+  const act=activeIdx();
+  if(e.key==='Enter'){if(!round||act<0)return newRound();const s=round.slots[act];if(!s.revealed){s.revealed=true;render()}return}
+  if(!round)return;const s=round.slots[act<0?round.slots.length-1:act];
+  if(e.key===' '){s.shown=!s.shown;render()}
+  else if(act>=0&&'123'.includes(e.key))record(act,{1:'correct',2:'incorrect',3:'noattempt'}[e.key]);});
+
+if(typeof document!=='undefined'&&document.getElementById('main')){load();save();render()}
+</script>
+</body>
+</html>
