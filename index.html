@@ -12,13 +12,13 @@
 <style>
 :root{--bg:#f5f4ef;--panel:#ffffff;--ink:#1d2330;--muted:#687080;--line:#e2e0d8;--accent:#2f5d8a;--accent-ink:#fff;
 --good:#2b7a4b;--bad:#b0402c;--warn:#a86d12;--good-bg:#e3f1e8;--bad-bg:#f8e3de;--warn-bg:#faefd9;
---grid:#e8e8e8;--axis:#555;--l0:#2f5d8a;--l1:#c4562c;--pt:#1d2330}
+--grid:#e8e8e8;--axis:#555;--l0:#2f5d8a;--l1:#c4562c;--l2:#2b7a4b;--pt:#1d2330}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171d;--panel:#1d2129;--ink:#e8e9ec;--muted:#9ba2ae;--line:#2e333d;--accent:#71a5d8;--accent-ink:#0d1117;
 --good:#5fc189;--bad:#e67f68;--warn:#e2ab4d;--good-bg:#1e3428;--bad-bg:#3b2520;--warn-bg:#3a2f1b;
---grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--pt:#e8e9ec;color-scheme:dark}}
+--grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--l2:#5fc189;--pt:#e8e9ec;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#14171d;--panel:#1d2129;--ink:#e8e9ec;--muted:#9ba2ae;--line:#2e333d;--accent:#71a5d8;--accent-ink:#0d1117;
 --good:#5fc189;--bad:#e67f68;--warn:#e2ab4d;--good-bg:#1e3428;--bad-bg:#3b2520;--warn-bg:#3a2f1b;
---grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--pt:#e8e9ec;color-scheme:dark}
+--grid:#2b3039;--axis:#9ba2ae;--l0:#71a5d8;--l1:#ec8a60;--l2:#5fc189;--pt:#e8e9ec;color-scheme:dark}
 :root{--scrim:rgba(20,23,29,.45)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
@@ -64,8 +64,9 @@ table.vt th{font-family:"Cambria Math",Cambria,"Times New Roman",serif;font-styl
 .graph .ax{stroke:var(--axis);stroke-width:1.6}
 .graph text{fill:var(--muted);font-size:10px;font-family:system-ui,sans-serif}
 .graph .ln{stroke-width:3;fill:none}
-.graph .ln0{stroke:var(--l0)} .graph .ln1{stroke:var(--l1)}
-.graph .sh0{fill:var(--l0);opacity:.2}
+.graph .ln0{stroke:var(--l0)} .graph .ln1{stroke:var(--l1)} .graph .ln2{stroke:var(--l2)}
+.graph .sh0{fill:var(--l0);opacity:.2} .graph .sh1{fill:var(--l1);opacity:.16} .graph .sh2{fill:var(--l2);opacity:.16}
+.graph .sol{fill:var(--pt);opacity:.22}
 .graph .pt{fill:var(--pt)}
 .graph .ptl{fill:var(--ink);font-size:13px;font-weight:650}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
@@ -226,7 +227,7 @@ const ins=s=>`<span class="ins">${s}</span>`;
 
 /* ===================== drawing ===================== */
 let svgN=0;
-function graphSVG({lines=[],points=[],paths=[],N=10}){
+function graphSVG({lines=[],points=[],paths=[],N=10,region=null}){
   const S=400,u=S/(2*N),X=x=>+((x+N)*u).toFixed(2),Y=y=>+((N-y)*u).toFixed(2);
   const id='c'+(++svgN)+Math.random().toString(36).slice(2,6);
   let s=`<svg class="graph" viewBox="-16 -16 ${S+32} ${S+32}" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="${id}"><rect x="0" y="0" width="${S}" height="${S}"/></clipPath></defs>`;
@@ -235,12 +236,13 @@ function graphSVG({lines=[],points=[],paths=[],N=10}){
   for(let i=-N+2;i<N;i+=2){if(i===0)continue;
     s+=`<text x="${X(i)}" y="${Y(0)+13}" text-anchor="middle">${num(i)}</text><text x="${X(0)-4}" y="${Y(i)+3.5}" text-anchor="end">${num(i)}</text>`}
   s+=`<g clip-path="url(#${id})">`;
+  if(region&&region.length>2)s+=`<polygon class="sol" points="${region.map(([x,y])=>`${X(x)},${Y(y)}`).join(' ')}"/>`;
   lines.forEach((l,i)=>{const dash=l.dashed?' stroke-dasharray="12 8"':'';
     if(l.vx!==undefined){const x=X(l.vx);
-      if(l.shade)s+=l.shade==='right'?`<rect class="sh0" x="${x}" y="0" width="${S-x}" height="${S}"/>`:`<rect class="sh0" x="0" y="0" width="${x}" height="${S}"/>`;
+      if(l.shade)s+=l.shade==='right'?`<rect class="sh${i}" x="${x}" y="0" width="${S-x}" height="${S}"/>`:`<rect class="sh${i}" x="0" y="0" width="${x}" height="${S}"/>`;
       s+=`<line class="ln ln${i}"${dash} x1="${x}" y1="-5" x2="${x}" y2="${S+5}"/>`}
     else{const f=x=>rval(l.m)*x+rval(l.b),a=-N-1,b=N+1,p0=[X(a),Y(f(a))],p1=[X(b),Y(f(b))];
-      if(l.shade){const e=l.shade==='above'?-99999:99999;s+=`<polygon class="sh0" points="${p0} ${p1} ${p1[0]},${e} ${p0[0]},${e}"/>`}
+      if(l.shade){const e=l.shade==='above'?-99999:99999;s+=`<polygon class="sh${i}" points="${p0} ${p1} ${p1[0]},${e} ${p0[0]},${e}"/>`}
       s+=`<line class="ln ln${i}"${dash} x1="${p0[0]}" y1="${p0[1]}" x2="${p1[0]}" y2="${p1[1]}"/>`}});
   paths.forEach(pp=>{s+=`<polyline class="ln ln0" points="${pp.map(([x,y])=>`${X(Math.max(-60,Math.min(60,x)))},${Y(Math.max(-60,Math.min(60,y)))}`).join(' ')}"/>`});
   s+='</g>';
@@ -639,6 +641,67 @@ function genIneq(lv){
     graph:graphSVG({lines:[{vx:a,dashed,shade:right?'right':'left'}]}),
     how:[`The boundary ${M(V('x')+' = '+num(a))} is a vertical line.`,lineKind(dashed),`${V('x')}-values ${right?'greater':'less'} than ${num(a)} are to the ${right?'right':'left'}, so shade ${right?'right':'left'}.`]}}
 
+/* ---------- systems of linear inequalities ---------- */
+// constraint: a·x + b·y + c (op) 0, with display info
+function icSI(m,b,op){const up=op[0]==='>',eq=slopeInt(m,b);
+  return{op,co:[-rval(m),1,-rval(b)],show:`${V('y')} ${OPS[op]} ${expr([[m,'x'],[b,'']])}`,line:{m,b},shade:up?'above':'below',
+    desc:`line ${M(eq)}, shade ${up?'above':'below'}`,
+    how:`${M(`${V('y')} ${OPS[op]} ${expr([[m,'x'],[b,'']])}`)}: graph ${M(eq)} (intercept ${M(num(rval(b)))}, slope ${M(rHTML(m))}), ${op.length===1?'dashed':'solid'}; ${V('y')} is ${up?'greater':'less'} than the line, so shade ${up?'above':'below'}.`,
+    lhs:(x,y)=>num(y),rhs:(x,y)=>rHTML(R(m.n*x+b.n*m.d,m.d))}}
+function icStd(sign,op){const{A,B,C,xi,yi}=interceptForm(sign),op2=B<0?FLIP[op]:op,up=op2[0]==='>',m=R(-A,B),sh=`${expr([[R(A),'x'],[R(B),'y']])} ${OPS[op]} ${num(C)}`;
+  return{op,co:[A,B,-C],show:sh,line:{m,b:R(yi)},shade:up?'above':'below',desc:`line through ${M(pt(xi,0))} and ${M(pt(0,yi))}, shade ${up?'above':'below'}`,
+    how:`${M(sh)}: graph using the intercepts ${M(pt(xi,0))} and ${M(pt(0,yi))}, ${op.length===1?'dashed':'solid'}. Solving for ${V('y')} gives ${M(`${V('y')} ${OPS[op2]} ${expr([[m,'x'],[R(yi),'']])}`)}${B<0?' (dividing by a negative flips the symbol)':''}, so shade ${up?'above':'below'}.`,
+    lhs:(x,y)=>num(A*x+B*y),rhs:()=>num(C)}}
+function icHV(vert,k,op){const big=op[0]==='>',v=vert?'x':'y',sh=`${V(v)} ${OPS[op]} ${num(k)}`,dir=vert?(big?'right':'left'):(big?'above':'below');
+  return{op,co:vert?[1,0,-k]:[0,1,-k],show:sh,line:vert?{vx:k}:{m:R(0),b:R(k)},shade:dir,desc:`${vert?'vertical':'horizontal'} line ${M(`${V(v)} = ${num(k)}`)}, shade ${vert?'to the ':''}${dir}`,
+    how:`${M(sh)}: ${vert?'vertical':'horizontal'} line ${M(`${V(v)} = ${num(k)}`)}, ${op.length===1?'dashed':'solid'}; shade ${vert?'to the ':''}${dir}.`,
+    lhs:(x,y)=>num(vert?x:y),rhs:()=>num(k)}}
+const icVal=(c,x,y)=>{const[a,b,d]=c.co,s=c.op[0]==='>'?1:-1;return s*(a*x+b*y+d)};
+const icOK=(c,x,y)=>{const g=icVal(c,x,y);return c.op.length===1?g>1e-9:g>=-1e-9};
+function clipRegion(cs,N=10){let P=[[-N-1,-N-1],[N+1,-N-1],[N+1,N+1],[-N-1,N+1]];
+  for(const c of cs){const f=([x,y])=>icVal(c,x,y),Q=[];
+    for(let i=0;i<P.length;i++){const A=P[i],B=P[(i+1)%P.length],fa=f(A),fb=f(B);
+      if(fa>=0)Q.push(A);if((fa>=0)!==(fb>=0)){const t=fa/(fa-fb);Q.push([A[0]+t*(B[0]-A[0]),A[1]+t*(B[1]-A[1])])}}
+    P=Q;if(!P.length)break}
+  return P}
+const polyArea=P=>{let a=0;for(let i=0;i<P.length;i++){const[x1,y1]=P[i],[x2,y2]=P[(i+1)%P.length];a+=x1*y2-x2*y1}return Math.abs(a)/2};
+const inWin=P=>{const N=10;return P.filter(([x,y])=>Math.abs(x)<=N&&Math.abs(y)<=N)};
+function genSysIneq(lv){return tryGen(()=>{
+  const ops=lv<=1?['<','>']:Object.keys(OPS),h=rand(-3,3),k=rand(-3,3);
+  const si=pool=>{const ok=pool.filter(m=>h%m.d===0);if(!ok.length)return null;const m=pick(ok),b=k-rval(m)*h;if(!Number.isInteger(b)||Math.abs(b)>7)return null;return icSI(m,R(b),pick(ops))};
+  const hv=()=>icHV(Math.random()<.5,nz(-5,5),pick(ops));
+  let cs;
+  if(lv<=1)cs=[si(INT_POS.concat(INT_POS.map(m=>R(-m.n)))),hv()];
+  else if(lv===2)cs=[si(INTS),si(INTS)];
+  else if(lv===3)cs=[si(FRACS),Math.random()<.3?hv():si(INTS)];
+  else if(lv===4)cs=[icStd(pick(['pos','neg']),pick(ops)),si(SLOPES)];
+  else{cs=Math.random()<.5?[icStd('pos',pick(ops)),icStd('neg',pick(ops))]:[icStd(undefined,pick(ops)),si(SLOPES)];
+    if(Math.random()<.5){const vert=Math.random()<.5;cs.push(icHV(vert,pick([0,0,rand(-3,3)]),pick(['>=','>','<=','<'])))}}
+  if(cs.some(c=>!c))return null;
+  // no parallel boundaries; boundaries must cross inside the window
+  for(let i=0;i<cs.length;i++)for(let j=i+1;j<cs.length;j++){const[a1,b1,c1]=cs[i].co,[a2,b2,c2]=cs[j].co,D=a1*b2-a2*b1;if(Math.abs(D)<1e-9)return null;
+    const x=(b1*c2-b2*c1)/D,y=(c1*a2-c2*a1)/D;if(Math.abs(x)>8||Math.abs(y)>8)return null}
+  const reg=clipRegion(cs);if(reg.length<3)return null;const area=polyArea(clipRegion(cs,9));if(area<10)return null;
+  // optional test point
+  let tp=null;
+  if(lv>=2&&Math.random()<.45){const want=pick(lv>=4?['in','out','on']:['in','out']);
+    for(let t=0;t<400&&!tp;t++){const x=rand(-8,8),y=rand(-8,8),on=cs.some(c=>Math.abs(icVal(c,x,y))<1e-9);
+      if(want==='on'?on:!on){const ok=cs.every(c=>icOK(c,x,y));if(want==='on'||ok===(want==='in'))tp={x,y,ok}}}
+    if(!tp)return null}
+  const lines=cs.map(c=>({...c.line,dashed:c.op.length===1,shade:c.shade}));
+  const sysHTML=`<div class="sys">${cs.map(c=>`<div>${M(c.show)}</div>`).join('')}</div>`;
+  const q=tp?`Graph the system. Is ${M(pt(tp.x,tp.y))} a solution?${sysHTML}`:`Graph the system and shade the solution region.${sysHTML}`;
+  const ans=cs.map(c=>`${c.op.length===1?'Dashed':'Solid'} ${c.desc}`).join('<br>')+'<br>Solution: where all the shadings overlap';
+  let tpA='',tpHow=[];
+  if(tp){const checks=cs.map(c=>{const ok=icOK(c,tp.x,tp.y);return`${M(`${c.lhs(tp.x,tp.y)} ${OPS[c.op]} ${c.rhs(tp.x,tp.y)}`)} ${ok?'✓':'✗'}`});
+    const bad=cs.findIndex(c=>!icOK(c,tp.x,tp.y)),onDashed=cs.some(c=>Math.abs(icVal(c,tp.x,tp.y))<1e-9&&c.op.length===1);
+    tpA=`<div style="margin-top:.3em"><b>${tp.ok?'Yes':'No'}</b>, ${M(pt(tp.x,tp.y))} ${tp.ok?'is':'is not'} a solution${!tp.ok&&onDashed?' (it is on a dashed line)':''}</div>`;
+    tpHow=[`Test ${M(pt(tp.x,tp.y))} in every inequality: ${checks.join(', ')}. ${tp.ok?'It makes all of them true, so it is a solution.':'It must make <i>every</i> inequality true, and it does not, so it is not a solution.'}`]}
+  return{q,a:`<div>${ans}</div>${tpA}`,graph:graphSVG({lines,region:reg,points:tp?[{x:tp.x,y:tp.y,label:true}]:[]}),
+    how:[...cs.map(c=>c.how),'The solution is the region where all the shadings overlap (darkest region). Points on a solid line are included; points on a dashed line are not.',...tpHow],
+    chk:()=>{const P=reg,cx=P.reduce((s,p)=>s+p[0],0)/P.length,cy=P.reduce((s,p)=>s+p[1],0)/P.length;
+      return cs.every(c=>icOK(c,cx,cy)&&(c.line.vx!==undefined?(icVal(c,c.line.vx+1,0)>0)===(c.shade==='right'):(icVal(c,0,rval(c.line.b)+1)>0)===(c.shade==='above')))}}})}
+
 const BUILTIN=[
   {id:'function',name:'Is it a function?',gen:genFunction},
   {id:'slope-graph',name:'Read slope from a graph',gen:genSlopeGraph},
@@ -653,6 +716,7 @@ const BUILTIN=[
   {id:'sys-sub',name:'Solve by substitution',gen:genSub},
   {id:'sys-elim',name:'Solve by elimination',gen:genElim},
   {id:'ineq',name:'Graph a linear inequality',gen:genIneq},
+  {id:'sys-ineq',name:'Systems of linear inequalities',gen:genSysIneq},
 ];
 
 /* ===================== state ===================== */
